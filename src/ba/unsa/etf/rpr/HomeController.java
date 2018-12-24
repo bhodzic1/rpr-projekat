@@ -32,7 +32,6 @@ public class HomeController implements Initializable {
 
     @FXML
     public void registration (ActionEvent actionEvent) {
-        System.out.print("pretisno si");
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
         formController = loader.getController();
