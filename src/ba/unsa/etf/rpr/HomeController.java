@@ -34,8 +34,7 @@ public class HomeController implements Initializable {
     public void registration (ActionEvent actionEvent) {
         System.out.print("pretisno si");
         Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("registration.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
         formController = loader.getController();
         Parent root = null;
         try {
@@ -44,11 +43,10 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
         myStage.setTitle("Student registration");
-        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
         myStage.setResizable(false);
         myStage.show();
-
     }
 
 

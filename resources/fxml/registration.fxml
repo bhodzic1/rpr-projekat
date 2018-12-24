@@ -9,20 +9,37 @@
 <?import javafx.scene.text.Font?>
 
 
+<?import java.net.URL?>
 <AnchorPane prefHeight="395.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.RegistrationForm">
+    <stylesheets>
+        <URL value="@/css/registration.css" />
+    </stylesheets>
    <children>
-      <TextField fx:id="lastnameField" layoutX="25.0" layoutY="132.0" promptText="Last name" />
+       <TextField fx:id="nameField" layoutX="25.0" layoutY="51.0" promptText="First name" />
       <Label layoutX="25.0" layoutY="24.0" text="First name">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="nameField" layoutX="25.0" layoutY="51.0" promptText="First name" />
+
+       <TextField fx:id="lastnameField" layoutX="25.0" layoutY="132.0" promptText="Last name" />
       <Label layoutX="25.0" layoutY="97.0" text="Last name">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
+       <Label layoutX="25.0" layoutY="183.0" text="Date of birth">
+           <font>
+               <Font name="Calibri Bold" size="14.0" />
+           </font>
+       </Label>
+       <DatePicker fx:id="dateField" layoutX="25.0" layoutY="209.0" />
+       <Label layoutX="25.0" layoutY="258.0" text="Email">
+           <font>
+               <Font name="Calibri Bold" size="14.0" />
+           </font>
+       </Label>
+       <TextField fx:id="emailField" layoutX="25.0" layoutY="288.0" promptText="Email" />
       <Label layoutX="300.0" layoutY="24.0" text="Sudent ID">
          <font>
             <Font name="Calibri Bold" size="14.0" />
@@ -35,34 +52,22 @@
          </font>
       </Label>
       <TextField fx:id="idNumberField" layoutX="300.0" layoutY="132.0" promptText="Identification number" />
-      <Label layoutX="25.0" layoutY="183.0" text="Date of birth">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="dateField" layoutX="25.0" layoutY="209.0" />
-      <Button fx:id="addButton" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Add">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Button>
       <Label layoutX="300.0" layoutY="183.0" text="Address">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="addressField" layoutX="300.0" layoutY="209.0" promptText="Address" />
-      <Label layoutX="25.0" layoutY="258.0" text="Email">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="emailField" layoutX="25.0" layoutY="288.0" promptText="Email" />
       <Label layoutX="300.0" layoutY="258.0" text="Study level">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
       <ChoiceBox fx:id="studyLevelBox" layoutX="299.0" layoutY="288.0" prefWidth="150.0" />
+       <Button fx:id="addButton" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Add">
+           <font>
+               <Font name="Calibri Bold" size="14.0" />
+           </font>
+       </Button>
    </children>
 </AnchorPane>
