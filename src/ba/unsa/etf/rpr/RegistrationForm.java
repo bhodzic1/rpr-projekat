@@ -2,13 +2,13 @@ package ba.unsa.etf.rpr;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -233,7 +233,14 @@ public class RegistrationForm implements Initializable {
             }
         });
 
+    }
 
 
+    @FXML
+    public void addStudent (ActionEvent actionEvent) {
+        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid) {
+            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), 1);
+            System.out.println(student);
+        }
     }
 }

@@ -64,7 +64,7 @@
          </font>
       </Label>
       <ChoiceBox fx:id="studyLevelBox" layoutX="299.0" layoutY="288.0" prefWidth="150.0" />
-       <Button fx:id="addButton" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Add">
+       <Button fx:id="addButton" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Add" onAction="#addStudent">
            <font>
                <Font name="Calibri Bold" size="14.0" />
            </font>

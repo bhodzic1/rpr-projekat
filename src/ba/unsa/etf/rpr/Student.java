@@ -89,4 +89,10 @@ public class Student {
     public void setStudyLevel(int studyLevel) {
         this.studyLevel.set(studyLevel);
     }
+
+    public String toString (Student student) {
+        String string = student.getLastname() + student.getName() + " " + student.getIndexNumber() + " " + student.getBirthday();
+        System.out.println(string);
+        return string;
+    }
 }
