@@ -53,6 +53,8 @@ public class RegistrationForm implements Initializable {
     private boolean dateValid;
     private boolean addressValid;
     private boolean emailValid;
+    private boolean studyLevelValid = true;
+    private int studyLevel = 1;
 
     private boolean isNotEmptyValidation (String string) {
         if (string.equals(""))
@@ -233,13 +235,23 @@ public class RegistrationForm implements Initializable {
             }
         });
 
+        studyLevelBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("Master")) {
+                    studyLevel = 2;
+                } else {
+                    studyLevel = 1;
+                }
+            }
+        });
     }
 
 
     @FXML
     public void addStudent (ActionEvent actionEvent) {
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid) {
-            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), 1);
+            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel);
             System.out.println(student);
         }
     }

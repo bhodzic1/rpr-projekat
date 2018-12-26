@@ -10,6 +10,8 @@
 
 
 <?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="395.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.RegistrationForm">
     <stylesheets>
         <URL value="@/css/registration.css" />
@@ -63,7 +65,14 @@
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="studyLevelBox" layoutX="299.0" layoutY="288.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="studyLevelBox" layoutX="299.0" layoutY="288.0" prefWidth="150.0" value = "Bachelor" >
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Bachelor" />
+                  <String fx:value="Master" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
        <Button fx:id="addButton" layoutX="199.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Add" onAction="#addStudent">
            <font>
                <Font name="Calibri Bold" size="14.0" />
