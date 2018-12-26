@@ -31,7 +31,7 @@ public class ListOfStudentsFilter implements Initializable {
 
     private ObservableList<String> listOfYear = FXCollections.observableArrayList("1", "2", "3");
     private ObservableList<String> listOfYear2 = FXCollections.observableArrayList("1", "2");
-
+    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("All", "Physics", "Mathematics", "Electrical Engineering", "Computer Science", "Algebra and Geometry");
 
 
     @Override
@@ -46,6 +46,16 @@ public class ListOfStudentsFilter implements Initializable {
                 } else if (newValue.equals("Master")) {
                     year.setItems(listOfYear2);
                     year.setDisable(false);
+                }
+            }
+        });
+
+        year.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("1") && cycle.getValue().equals("Bachelor")) {
+                    subject.setItems(subjectsOfFirstYear);
+                    subject.setDisable(false);
                 }
             }
         });
