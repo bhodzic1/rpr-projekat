@@ -46,6 +46,9 @@ public class RegistrationForm implements Initializable {
     @FXML
     private ChoiceBox<String> studyLevelBox;
 
+    @FXML
+    private ChoiceBox<String> studyYear;
+
     private boolean firstnameValid;
     private boolean lastnameValid;
     private boolean idValid;
@@ -54,6 +57,7 @@ public class RegistrationForm implements Initializable {
     private boolean addressValid;
     private boolean emailValid;
     private boolean studyLevelValid = true;
+    private boolean studyYearValid = true;
     private int studyLevel = 1;
 
     private boolean isNotEmptyValidation (String string) {
@@ -240,18 +244,42 @@ public class RegistrationForm implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.equals("Master")) {
                     studyLevel = 2;
+                    if (Integer.valueOf(studyYear.getValue()) > 2) {
+                        studyLevelBox.getStyleClass().removeAll("valid");
+                        studyLevelBox.getStyleClass().add("notValid");
+                        studyLevelValid = false;
+                    }
                 } else {
                     studyLevel = 1;
+                    studyLevelBox.getStyleClass().removeAll("notValid");
+                    studyLevelBox.getStyleClass().add("valid");
+                    studyLevelValid = true;
+                }
+            }
+        });
+
+        studyYear.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("3")) {
+                    if (studyLevelBox.getValue().equals("Master")) {
+                        studyYearValid = false;
+                        studyYear.getStyleClass().removeAll("valid");
+                        studyYear.getStyleClass().add("notValid");
+                    }
+                } else {
+                    studyYearValid = true;
+                    studyYear.getStyleClass().removeAll("notValid");
+                    studyYear.getStyleClass().add("valid");
                 }
             }
         });
     }
 
-
     @FXML
     public void addStudent (ActionEvent actionEvent) {
-        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid) {
-            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel);
+        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
+            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, studyYear.getValue());
             System.out.println(student);
         }
     }
