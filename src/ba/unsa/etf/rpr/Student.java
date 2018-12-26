@@ -115,9 +115,9 @@ public class Student {
         this.studyYear.set(studyYear);
     }
 
-    public String toString (Student student) {
-        String string = student.getLastname() + student.getName() + " " + student.getIndexNumber() + " " + student.getBirthday();
-        System.out.println(string);
+    @Override
+    public String toString () {
+        String string = name.get() + " " + lastname.get() + " " + indexNumber.get();
         return string;
     }
 

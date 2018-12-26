@@ -9,8 +9,18 @@ public class Subject {
     private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private SimpleStringProperty professorName = new SimpleStringProperty("");
+
+    public Subject(String name, int id, String professorName, int semester) {
+        this.name = new SimpleStringProperty(name);
+        this.id = new SimpleIntegerProperty(id);
+        this.professorName = new SimpleStringProperty(professorName);
+        this.semester = new SimpleIntegerProperty(semester);
+    }
+
     private SimpleIntegerProperty semester = new SimpleIntegerProperty(0);
     private ArrayList<Student> students = new ArrayList<>();
+
+    public Subject () {};
 
 
     public String getName() {
