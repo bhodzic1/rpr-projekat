@@ -27,7 +27,7 @@
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="listButton" layoutX="222.0" layoutY="50.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="138.0" text="List of students">
+                  <Button fx:id="listButton" layoutX="222.0" layoutY="50.0" mnemonicParsing="false" onAction="#filter" prefHeight="79.0" prefWidth="138.0" text="List of students">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>

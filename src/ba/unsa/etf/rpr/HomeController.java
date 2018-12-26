@@ -23,6 +23,7 @@ public class HomeController implements Initializable {
     private Button listButton;
 
     private RegistrationForm formController;
+    private ListOfStudentsFilter filter;
     public HomeController() {
     }
 
@@ -36,6 +37,24 @@ public class HomeController implements Initializable {
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
         formController = loader.getController();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        myStage.setTitle("Student registration");
+        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
+    @FXML
+    public void filter (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudentsFilter.fxml"));
+        filter = loader.getController();
         Parent root = null;
         try {
             root = loader.load();
