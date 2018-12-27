@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfStudents">
    <center>
       <TableView fx:id="table" prefHeight="203.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
@@ -17,7 +17,8 @@
       </TableView>
    </center>
    <left>
-      <ListView fx:id="list" prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="listView" prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER" >
+      </ListView>
    </left>
    <top>
       <Separator prefHeight="63.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
