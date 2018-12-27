@@ -6,18 +6,18 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView prefHeight="203.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="table" prefHeight="203.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="nameColumn" prefWidth="158.40003049373627" text="Name" />
+          <TableColumn fx:id="lastnameColumn" prefWidth="178.39996337890625" text="Last name" />
+            <TableColumn fx:id="indexColumn" prefWidth="91.20000610351565" text="ID" />
         </columns>
       </TableView>
    </center>
    <left>
-      <ListView prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="list" prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER" />
    </left>
    <top>
       <Separator prefHeight="63.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
