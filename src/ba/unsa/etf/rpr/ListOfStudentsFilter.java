@@ -25,6 +25,9 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class ListOfStudentsFilter implements Initializable {
 
     public ListOfStudentsFilter () {}
+    public ListOfStudentsFilter (StudentsModel model) {
+        this.model = model;
+    }
 
 
     private ListOfStudents listOfStudents;
@@ -43,7 +46,7 @@ public class ListOfStudentsFilter implements Initializable {
 
     private ObservableList<String> listOfYear = FXCollections.observableArrayList("1", "2", "3");
     private ObservableList<String> listOfYear2 = FXCollections.observableArrayList("1", "2");
-    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("All", "Fizika", "Matematika 1", "Osnove računarstva", "Osnove računarstva", "Linearna algebra", "Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
+    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("All", "Fizika", "Matematika 1", "Osnove računarstva", "Osnove elektrotehnike", "Linearna algebra", "Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
     private ObservableList<String> lista = FXCollections.observableArrayList();
     private boolean bachelor;
     private boolean master;
@@ -52,20 +55,19 @@ public class ListOfStudentsFilter implements Initializable {
     private boolean thirdYear;
     private boolean all;
     private String selectedSubject;
-
+    private int level = 0;
+    private StudentsModel model;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        model = new StudentsModel();
+        model.set();
         bachelor = false;
         master = false;
         firstYear = false;
         secondYear = false;
         thirdYear = false;
         all = false;
-        lista.add(new String("Bernes"));
-        lista.add(new String("Osman"));
-        lista.add(new String("Ersin"));
-        lista.add(new String("Harun"));
         cycle.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -90,12 +92,15 @@ public class ListOfStudentsFilter implements Initializable {
                     subject.setDisable(false);
                     cycle.setDisable(true);
                     firstYear = true;
+                    level = 1;
                 } else if (newValue.equals("2")) {
                     cycle.setDisable(true);
                     secondYear = true;
+                    level = 2;
                 } else {
                     cycle.setDisable(true);
                     thirdYear = true;
+                    level = 3;
                 }
             }
         });
@@ -116,6 +121,7 @@ public class ListOfStudentsFilter implements Initializable {
 
     @FXML
     public void go (ActionEvent actionEvent) {
+
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudents.fxml"));
         try {
@@ -132,7 +138,7 @@ public class ListOfStudentsFilter implements Initializable {
 
         if (bachelor == true) {
             if (firstYear == true) {
-                listOfStudents.setList1(subjectsOfFirstYear);
+                listOfStudents.setList1(subjectsOfFirstYear, level, model);
 
             } else if (secondYear == true) {
 

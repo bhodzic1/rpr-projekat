@@ -8,6 +8,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,12 +33,25 @@ public class ListOfStudents implements Initializable {
     private ListView<String> listView;
 
     private ObservableList<String> list = FXCollections.observableArrayList();
-
+    private int level;
+    public ObservableList<Student> k = FXCollections.observableArrayList();
+    public StudentsModel model;
     public ListOfStudents () {}
-
-    public void setList1 (ObservableList<String> l) {
+    public ListOfStudents (StudentsModel model) {
+        this.model = model;
+    }
+    public void setList1 (ObservableList<String> l, int level, StudentsModel model) {
         this.list = l;
         listView.getItems().addAll(list);
+        this.level = level;
+        this.model = model;
+        if (level == 1) {
+            k = model.getStudentsOfFirstYear();
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            lastnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+            indexColumn.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
+            table.setItems(model.getStudentsOfFirstYear());
+        }
     }
 
     @Override

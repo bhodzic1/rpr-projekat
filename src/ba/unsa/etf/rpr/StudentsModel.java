@@ -3,16 +3,81 @@ package ba.unsa.etf.rpr;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+
 public class StudentsModel {
+    private ObservableList<Student> studentsOfFirstYear = FXCollections.observableArrayList();
+    private ObservableList<Student> studentsOfSecondYear = FXCollections.observableArrayList();
+    private ObservableList<Student> studentsOfThirdYear = FXCollections.observableArrayList();
+    private ObservableList<Student> studentsOfFourthYear = FXCollections.observableArrayList();
+    private ObservableList<Student> studentsOfFifthYear = FXCollections.observableArrayList();
     private ObservableList<Student> students = FXCollections.observableArrayList();
 
     public StudentsModel () {};
 
-    public ObservableList<Student> getStudents() {
-        return students;
+    public void set () {
+        studentsOfFirstYear.add(new Student("Meho", "Mehic", 10000, LocalDate.of(1995, 9, 17), "1709995122157", 1, "1"));
+        students = studentsOfFirstYear;
     }
 
-    public void setStudents(ObservableList<Student> students) {
-        this.students = students;
+    public void addStudent (Student student, int level) {
+        if (level == 1) {
+            studentsOfFirstYear.add(student);
+        } else if (level == 2) {
+            studentsOfSecondYear.add(student);
+        } else if (level == 3) {
+            studentsOfThirdYear.add(student);
+        } else if (level == 4) {
+            studentsOfFourthYear.add(student);
+        } else studentsOfFifthYear.add(student);
+    }
+
+    public ObservableList<Student> getStudentsOfFirstYear() {
+        return studentsOfFirstYear;
+    }
+
+    public void setStudentsOfFirstYear(ObservableList<Student> students) {
+        this.studentsOfFirstYear = students;
+    }
+
+    public ObservableList<Student> getStudentsOfSecondYear() {
+        return studentsOfSecondYear;
+    }
+
+    public void setStudentsOfSecondYear(ObservableList<Student> studentsOfSecondYear) {
+        this.studentsOfSecondYear = studentsOfSecondYear;
+    }
+
+    public ObservableList<Student> getStudentsOfThirdYear() {
+        return studentsOfThirdYear;
+    }
+
+    public void setStudentsOfThirdYear(ObservableList<Student> studentsOfThirdYear) {
+        this.studentsOfThirdYear = studentsOfThirdYear;
+    }
+
+    public ObservableList<Student> getStudentsOfFourthYear() {
+        return studentsOfFourthYear;
+    }
+
+    public void setStudentsOfFourthYear(ObservableList<Student> studentsOfFourthYear) {
+        this.studentsOfFourthYear = studentsOfFourthYear;
+    }
+
+    public ObservableList<Student> getStudentsOfFifthYear() {
+        return studentsOfFifthYear;
+    }
+
+    public void setStudentsOfFifthYear(ObservableList<Student> studentsOfFifthYear) {
+        this.studentsOfFifthYear = studentsOfFifthYear;
+    }
+
+    @Override
+    public String toString() {
+        String temp = "";
+        for(Student s : students){
+            temp += s.toString();
+        }
+        return temp;
     }
 }

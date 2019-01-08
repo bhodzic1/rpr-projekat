@@ -24,9 +24,12 @@ public class HomeController implements Initializable {
 
     private RegistrationForm formController;
     private ListOfStudentsFilter filter;
+    private StudentsModel model;
     public HomeController() {
     }
-
+    public HomeController(StudentsModel model) {
+        this.model = model;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -52,6 +55,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public void filter (ActionEvent actionEvent) {
+
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudentsFilter.fxml"));
         filter = loader.getController();
