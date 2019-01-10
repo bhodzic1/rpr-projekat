@@ -17,12 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*String url = "jdbc:sqlite:resources/sql/base.db";
-        Connection conn = DriverManager.getConnection(url);
-        Statement stmt = conn.createStatement();
-        String upit = "Insert into Student values (Bernes, Hodzic, 17052);";
-
-        ResultSet result = stmt.executeQuery(upit);*/
         model = new StudentsModel();
         model.set();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));

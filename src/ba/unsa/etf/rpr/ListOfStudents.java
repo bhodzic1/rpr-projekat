@@ -40,7 +40,7 @@ public class ListOfStudents implements Initializable {
     public ListOfStudents (StudentsModel model) {
         this.model = model;
     }
-    public void setList1 (ObservableList<String> l, int level, StudentsModel model) {
+    public void setList (ObservableList<String> l, int level, StudentsModel model) {
         this.list = l;
         listView.getItems().addAll(list);
         this.level = level;

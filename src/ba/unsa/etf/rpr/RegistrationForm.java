@@ -17,7 +17,8 @@ import static java.lang.Character.isDigit;
 
 public class RegistrationForm implements Initializable {
 
-  public RegistrationForm () {};
+    public RegistrationForm () {};
+
 
     @FXML
     private TextField lastnameField;
@@ -59,7 +60,7 @@ public class RegistrationForm implements Initializable {
     private boolean studyLevelValid = true;
     private boolean studyYearValid = true;
     private int studyLevel = 1;
-
+    private StudentsModel model;
     private boolean isNotEmptyValidation (String string) {
         if (string.equals(""))
             return false;
@@ -120,6 +121,10 @@ public class RegistrationForm implements Initializable {
             return false;
         }
         return true;
+    }
+
+    public void set (StudentsModel model) {
+        this.model = model;
     }
 
     @Override
@@ -280,7 +285,8 @@ public class RegistrationForm implements Initializable {
     public void addStudent (ActionEvent actionEvent) {
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, studyYear.getValue());
-            System.out.println(student);
+            model.addStudent(student, Integer.valueOf(studyYear.getValue()));
+            System.out.println("ok");
         }
     }
 }

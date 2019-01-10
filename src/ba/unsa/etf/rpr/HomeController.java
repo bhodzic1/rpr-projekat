@@ -16,17 +16,20 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class HomeController implements Initializable {
+    public HomeController() {
+
+    }
 
     @FXML
     private Button registryButton;
     @FXML
     private Button listButton;
 
-    private RegistrationForm formController;
+
     private ListOfStudentsFilter filter;
-    private StudentsModel model;
-    public HomeController() {
-    }
+    private RegistrationForm formController;
+    StudentsModel model;
+
     public HomeController(StudentsModel model) {
         this.model = model;
     }
@@ -39,16 +42,15 @@ public class HomeController implements Initializable {
     public void registration (ActionEvent actionEvent) {
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
-        formController = loader.getController();
-        Parent root = null;
         try {
-            root = loader.load();
+            loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        formController = loader.getController();
+        formController.set(model);
         myStage.setTitle("Student registration");
-        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         myStage.setResizable(false);
         myStage.show();
     }
@@ -58,15 +60,15 @@ public class HomeController implements Initializable {
 
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudentsFilter.fxml"));
-        filter = loader.getController();
-        Parent root = null;
         try {
-            root = loader.load();
+          loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        filter = loader.getController();
+        filter.set(model);
         myStage.setTitle("Student registration");
-        myStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
         myStage.setResizable(false);
         myStage.show();

@@ -57,11 +57,11 @@ public class ListOfStudentsFilter implements Initializable {
     private String selectedSubject;
     private int level = 0;
     private StudentsModel model;
-
+    public void set (StudentsModel model) {
+        this.model = model;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new StudentsModel();
-        model.set();
         bachelor = false;
         master = false;
         firstYear = false;
@@ -130,7 +130,6 @@ public class ListOfStudentsFilter implements Initializable {
             e.printStackTrace();
         }
         listOfStudents = loader.getController();
-
         myStage.setTitle("Student registration");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
@@ -138,7 +137,7 @@ public class ListOfStudentsFilter implements Initializable {
 
         if (bachelor == true) {
             if (firstYear == true) {
-                listOfStudents.setList1(subjectsOfFirstYear, level, model);
+                listOfStudents.setList(subjectsOfFirstYear, level, model);
 
             } else if (secondYear == true) {
 
