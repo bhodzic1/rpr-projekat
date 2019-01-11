@@ -312,13 +312,17 @@ public class RegistrationForm implements Initializable {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, studyYear.getValue());
             model.addStudent(student, Integer.valueOf(studyYear.getValue()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            DialogPane root = alert.getDialogPane();
             alert.setTitle("Adding a student");
             alert.setHeaderText("");
             alert.setContentText("Student successfully added.");
             alert.show();
-            ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Adding a student");
+            alert.setHeaderText("");
+            alert.setContentText("Student is not added.");
+            alert.show();
         }
+        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 }

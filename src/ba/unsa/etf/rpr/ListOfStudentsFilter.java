@@ -44,8 +44,9 @@ public class ListOfStudentsFilter implements Initializable {
     private Button go;
     private ObservableList<String> listOfYear = FXCollections.observableArrayList("1", "2", "3");
     private ObservableList<String> listOfYear2 = FXCollections.observableArrayList("1", "2");
-    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("Fizika", "Matematika 1", "Osnove računarstva", "Osnove elektrotehnike", "Linearna algebra", "Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
+    private ObservableList<String> subjects = FXCollections.observableArrayList();
     private ObservableList<String> lista = FXCollections.observableArrayList();
+    private Syllabus syllabus;
     private boolean bachelor;
     private boolean master;
     private boolean firstYear;
@@ -55,6 +56,7 @@ public class ListOfStudentsFilter implements Initializable {
     private String selectedSubject;
     private int level = 0;
     private StudentsModel model;
+    private int semesterValue;
 
     public void set (StudentsModel model) {
         this.model = model;
@@ -67,6 +69,7 @@ public class ListOfStudentsFilter implements Initializable {
         secondYear = false;
         thirdYear = false;
         all = false;
+        syllabus = new Syllabus();
         cycle.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -106,9 +109,9 @@ public class ListOfStudentsFilter implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                if (newValue.equals("1")) {
-
+                    semesterValue = 1;
                } else {
-
+                    semesterValue = 2;
                }
             }
         });
@@ -133,11 +136,13 @@ public class ListOfStudentsFilter implements Initializable {
 
 
         if (bachelor == true) {
-            if (firstYear == true) {
-                listOfStudents.setList(subjectsOfFirstYear, level, model);
+            if (firstYear == true && semesterValue == 1) {
+                subjects = syllabus.getSubjectsOfFirstYear1();
+                listOfStudents.setList(subjects, level, model);
 
-            } else if (secondYear == true) {
-
+            } else if (firstYear == true && semesterValue == 2) {
+                subjects = syllabus.getSubjectsOfFirstYear2();
+                listOfStudents.setList(subjects, level, model);
             } else {
 
             }
