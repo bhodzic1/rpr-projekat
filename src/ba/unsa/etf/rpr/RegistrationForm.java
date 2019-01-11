@@ -5,13 +5,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
 
 import static java.lang.Character.isDigit;
 
@@ -184,6 +186,29 @@ public class RegistrationForm implements Initializable {
             }
         });
 
+        dateField.setConverter(new StringConverter<LocalDate>()
+        {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+
+            @Override
+            public String toString(LocalDate localDate)
+            {
+                if(localDate==null)
+                    return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString)
+            {
+                if(dateString==null || dateString.trim().isEmpty())
+                {
+                    return null;
+                }
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
+
         dateField.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
@@ -286,7 +311,14 @@ public class RegistrationForm implements Initializable {
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, studyYear.getValue());
             model.addStudent(student, Integer.valueOf(studyYear.getValue()));
-            System.out.println("ok");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            DialogPane root = alert.getDialogPane();
+            alert.setTitle("Adding a student");
+            alert.setHeaderText("");
+            alert.setContentText("Student successfully added.");
+            alert.show();
+            ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+
         }
     }
 }

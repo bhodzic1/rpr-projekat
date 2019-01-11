@@ -38,15 +38,13 @@ public class ListOfStudentsFilter implements Initializable {
     private ChoiceBox<String> year;
 
     @FXML
-    private ChoiceBox<String> subject;
+    private ChoiceBox<String> semester;
 
     @FXML
     private Button go;
-
-
     private ObservableList<String> listOfYear = FXCollections.observableArrayList("1", "2", "3");
     private ObservableList<String> listOfYear2 = FXCollections.observableArrayList("1", "2");
-    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("All", "Fizika", "Matematika 1", "Osnove računarstva", "Osnove elektrotehnike", "Linearna algebra", "Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
+    private ObservableList<String> subjectsOfFirstYear = FXCollections.observableArrayList("Fizika", "Matematika 1", "Osnove računarstva", "Osnove elektrotehnike", "Linearna algebra", "Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
     private ObservableList<String> lista = FXCollections.observableArrayList();
     private boolean bachelor;
     private boolean master;
@@ -57,6 +55,7 @@ public class ListOfStudentsFilter implements Initializable {
     private String selectedSubject;
     private int level = 0;
     private StudentsModel model;
+
     public void set (StudentsModel model) {
         this.model = model;
     }
@@ -88,8 +87,6 @@ public class ListOfStudentsFilter implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.equals("1")) {
-                    subject.setItems(subjectsOfFirstYear);
-                    subject.setDisable(false);
                     cycle.setDisable(true);
                     firstYear = true;
                     level = 1;
@@ -105,14 +102,14 @@ public class ListOfStudentsFilter implements Initializable {
             }
         });
 
-        subject.valueProperty().addListener(new ChangeListener<String>() {
+        semester.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.equals("All")) {
-                    all = true;
-                } else {
-                    selectedSubject = newValue;
-                }
+               if (newValue.equals("1")) {
+
+               } else {
+
+               }
             }
         });
 

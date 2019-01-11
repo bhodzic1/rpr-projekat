@@ -16,7 +16,7 @@
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="cycle" layoutX="33.0" layoutY="62.0" prefWidth="150.0" >
+      <ChoiceBox fx:id="cycle" layoutX="33.0" layoutY="62.0" prefWidth="150.0">
           <items>
               <FXCollections fx:factory="observableArrayList" >
                   <String fx:value="Bachelor" />
@@ -29,13 +29,20 @@
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="year" layoutX="33.0" layoutY="151.0" prefWidth="150.0" disable="true" />
-      <Label layoutX="33.0" layoutY="203.0" text="Subject">
+      <ChoiceBox fx:id="year" layoutX="33.0" layoutY="151.0" prefWidth="150.0" />
+      <Label layoutX="33.0" layoutY="203.0" text="Semester">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-       <ChoiceBox fx:id="subject" layoutX="33.0" layoutY="237.0" prefWidth="150.0" disable="true" />
+       <ChoiceBox fx:id="semester" layoutX="33.0" layoutY="237.0" prefWidth="150.0" >
+           <items>
+               <FXCollections fx:factory="observableArrayList" >
+                   <String fx:value="1" />
+                   <String fx:value="2" />
+               </FXCollections>
+           </items>
+       </ChoiceBox>
       <Button fx:id="go" layoutX="40.0" layoutY="330.0" mnemonicParsing="false" text="GO" onAction="#go" >
          <font>
             <Font name="Calibri Bold" size="14.0" />
