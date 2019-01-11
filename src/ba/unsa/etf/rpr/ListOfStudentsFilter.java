@@ -70,6 +70,7 @@ public class ListOfStudentsFilter implements Initializable {
         thirdYear = false;
         all = false;
         syllabus = new Syllabus();
+
         cycle.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -121,7 +122,7 @@ public class ListOfStudentsFilter implements Initializable {
 
     @FXML
     public void go (ActionEvent actionEvent) {
-
+        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudents.fxml"));
         try {
@@ -139,12 +140,15 @@ public class ListOfStudentsFilter implements Initializable {
             if (firstYear == true && semesterValue == 1) {
                 subjects = syllabus.getSubjectsOfFirstYear1();
                 listOfStudents.setList(subjects, level, model);
-
             } else if (firstYear == true && semesterValue == 2) {
                 subjects = syllabus.getSubjectsOfFirstYear2();
                 listOfStudents.setList(subjects, level, model);
-            } else {
-
+            } else if (secondYear == true && semesterValue == 1) {
+                subjects = syllabus.getSubjectsOfSecondYear1();
+                listOfStudents.setList(subjects, level, model);
+            } else if (secondYear == true && semesterValue == 2) {
+                subjects = syllabus.getSubjectsOfSecondYear2();
+                listOfStudents.setList(subjects, level, model);
             }
         } else {
 

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfStudents">
    <center>
@@ -17,10 +20,21 @@
       </TableView>
    </center>
    <left>
-      <ListView fx:id="listView" prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER" >
+      <ListView fx:id="listView" prefHeight="337.0" prefWidth="170.0" BorderPane.alignment="CENTER">
       </ListView>
    </left>
    <top>
       <Separator prefHeight="63.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </top>
+   <bottom>
+      <Pane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="reportBtn" layoutX="27.0" layoutY="9.0" mnemonicParsing="false" text="Subject report" onAction="#report">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </bottom>
 </BorderPane>

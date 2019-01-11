@@ -16,7 +16,13 @@ public class StudentsModel {
     public StudentsModel () {};
 
     public void set () {
-        studentsOfFirstYear.add(new Student("Meho", "Mehic", 10000, LocalDate.of(1995, 9, 17), "1709995122157", 1, "1"));
+        studentsOfFirstYear.add(new Student("Meho", "Mehić", 10000, LocalDate.of(1995, 9, 17), "1709995122157", 1, "1"));
+        studentsOfFirstYear.add(new Student("Mirza", "Delibašić", 10001, LocalDate.of(1995, 4, 15), "1504995136452", 1, "1"));
+        studentsOfFirstYear.add(new Student("Dragoslav", "Šekularac", 10002, LocalDate.of(1995, 2, 20), "2002995331967", 1, "1"));
+        studentsOfSecondYear.add(new Student("Sergej", "Barbarez", 10003, LocalDate.of(1994, 6, 19), "1906994989231", 1, "2"));
+        studentsOfSecondYear.add(new Student("Asim", "Ferhatović", 10004, LocalDate.of(1993, 9, 12), "1209993243221", 1, "2"));
+        studentsOfSecondYear.add(new Student("Zvjezdan", "Misimović", 10005, LocalDate.of(1994, 1, 14), "1401994334289", 1, "2"));
+
         students = studentsOfFirstYear;
     }
 
