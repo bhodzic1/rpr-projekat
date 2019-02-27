@@ -29,7 +29,12 @@
    <bottom>
       <Pane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="reportBtn" layoutX="27.0" layoutY="9.0" mnemonicParsing="false" text="Subject report" onAction="#report">
+            <Button fx:id="reportBtn" layoutX="27.0" layoutY="9.0" mnemonicParsing="false" onAction="#report" text="Subject report">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="studentReportBtn" layoutX="491.0" layoutY="9.0" mnemonicParsing="false" onAction="#studentReport" text="Student report">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font>

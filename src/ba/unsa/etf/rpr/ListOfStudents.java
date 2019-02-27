@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -44,8 +42,10 @@ public class ListOfStudents implements Initializable {
     @FXML
     private Button reportBtn;
 
+
     private SubjectReport subjectReport;
     private String selectedSubject = null;
+    private Student selectedStudent = null;
     private ObservableList<String> list = FXCollections.observableArrayList();
     private int level;
     public ObservableList<Student> k = FXCollections.observableArrayList();
@@ -76,7 +76,7 @@ public class ListOfStudents implements Initializable {
 
     @FXML
     public void report (ActionEvent actionEvent) {
-        if (listView.getSelectionModel() != null) {
+        if (listView.getSelectionModel().getSelectedItem() != null) {
             selectedSubject = listView.getSelectionModel().getSelectedItem();
             Stage myStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
@@ -92,6 +92,33 @@ public class ListOfStudents implements Initializable {
 
             myStage.setResizable(false);
             myStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Subject report");
+            alert.setHeaderText("Subject is not selected.");
+            alert.setContentText("You need to select subject.");
+            alert.show();
+        }
+    }
+
+    @FXML
+    public void studentReport (ActionEvent actionEvent) {
+        if (table.getSelectionModel() != null) {
+            selectedStudent = table.getSelectionModel().getSelectedItem();
+            Stage stage = new Stage();
+            Parent root = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
+            StudentReport studentReport = new StudentReport(selectedStudent);
+            loader.setController(studentReport);
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setTitle("Student report");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
         }
     }
 
