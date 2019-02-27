@@ -103,7 +103,7 @@ public class ListOfStudents implements Initializable {
 
     @FXML
     public void studentReport (ActionEvent actionEvent) {
-        if (table.getSelectionModel() != null) {
+        if (table.getSelectionModel().getSelectedItem() != null) {
             selectedStudent = table.getSelectionModel().getSelectedItem();
             Stage stage = new Stage();
             Parent root = null;
@@ -119,6 +119,12 @@ public class ListOfStudents implements Initializable {
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Student report");
+            alert.setHeaderText("Student is not selected.");
+            alert.setContentText("You need to select a student.");
+            alert.show();
         }
     }
 
