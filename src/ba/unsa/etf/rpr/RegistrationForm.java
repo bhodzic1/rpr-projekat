@@ -19,6 +19,8 @@ import static java.lang.Character.isDigit;
 
 public class RegistrationForm implements Initializable {
 
+    private CollegeDAO dao = CollegeDAO.getInstance();
+
     public RegistrationForm () {};
 
 
@@ -309,8 +311,9 @@ public class RegistrationForm implements Initializable {
     @FXML
     public void addStudent (ActionEvent actionEvent) {
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
-            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, studyYear.getValue());
-            model.addStudent(student, Integer.valueOf(studyYear.getValue()));
+            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText());
+            //model.addStudent(student, Integer.valueOf(studyYear.getValue()));
+            dao.addStudent(student);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding a student");
             alert.setHeaderText("");

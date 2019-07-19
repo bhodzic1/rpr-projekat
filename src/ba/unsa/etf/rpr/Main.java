@@ -12,19 +12,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Main extends Application {
-    StudentsModel model;
-    HomeController controller;
+    Login controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        model = new StudentsModel();
-        model.set();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
-        controller = new HomeController(model);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+        controller = new Login();
         loader.setController(controller);
         Parent root = loader.load();
-        primaryStage.setTitle("Student Information System");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(new Scene(root, 300, 150));
 
         primaryStage.show();
         primaryStage.toFront();
@@ -32,6 +29,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        CollegeDAO dao = CollegeDAO.getInstance();
+        dao.ispisi();
         launch(args);
+
     }
 }

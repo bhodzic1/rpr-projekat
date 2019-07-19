@@ -33,6 +33,9 @@ public class HomeController implements Initializable {
     public HomeController(StudentsModel model) {
         this.model = model;
     }
+    public void setModel(StudentsModel model){
+        this.model = model;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

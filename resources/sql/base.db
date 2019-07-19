@@ -1,6 +1,0 @@
-
-create table Student (
-   name varchar(20) not null,
-   lastname varchar(20) not null,
-   indexNumber int not null primary key
-);

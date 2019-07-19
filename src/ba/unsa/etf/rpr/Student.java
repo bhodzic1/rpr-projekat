@@ -15,9 +15,11 @@ public class Student {
     private SimpleStringProperty identificationNumber = new SimpleStringProperty("");
     private SimpleIntegerProperty studyLevel = new SimpleIntegerProperty(1);
     private SimpleIntegerProperty studyYear = new SimpleIntegerProperty(1);
+    private SimpleStringProperty address = new SimpleStringProperty("");
+    private SimpleStringProperty email = new SimpleStringProperty("");
     private Map<Subject, Integer> grades = new HashMap<>();
 
-    public Student(String name, String lastname, int indexNumber, LocalDate birthday, String identificationNumber, int studyLevel, String year) {
+    public Student(String name, String lastname, int indexNumber, LocalDate birthday, String identificationNumber, int studyLevel, int year, String address, String email) {
         this.name = new SimpleStringProperty(name);
         this.lastname = new SimpleStringProperty(lastname);
         this.indexNumber = new SimpleIntegerProperty(indexNumber);
@@ -25,6 +27,8 @@ public class Student {
         this.identificationNumber = new SimpleStringProperty(identificationNumber);
         this.studyLevel = new SimpleIntegerProperty(studyLevel);
         this.studyYear = new SimpleIntegerProperty(Integer.valueOf(year));
+        this.address = new SimpleStringProperty(address);
+        this.email = new SimpleStringProperty(email);
     }
 
     public String getName() {
@@ -122,5 +126,27 @@ public class Student {
     }
 
 
+    public String getAddress() {
+        return address.get();
+    }
 
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public SimpleStringProperty emailProperty() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
 }
