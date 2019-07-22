@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+import javax.xml.transform.Result;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -13,7 +14,7 @@ public class CollegeDAO {
     private Connection conn;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
 
-    private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery;
+    private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getMaxId;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -40,8 +41,11 @@ public class CollegeDAO {
         }
         try {
             getStudentsQuery = conn.prepareStatement("SELECT * FROM student WHERE study_level = ? AND study_year = ?");
-            setStudentIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM student");
+            setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
+            getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
+            proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,16 +96,30 @@ public class CollegeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(instance.subjects(1).size());
+        System.out.println(instance.students(1, 1));
+        try {
+            ResultSet resultSet = proba.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(getSubjectFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private Student getStudentFromResultSet(ResultSet rs) throws SQLException {
+    private Student getStudentFromResultSet (ResultSet rs) throws SQLException {
         Student student = new Student(rs.getString(1), rs.getString(2), rs.getInt(3), LocalDate.parse(rs.getString(4), formatter), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9));
         return student;
     }
 
-    public ArrayList<Student> students(int studyLevel, int studyYear) {
+    private Subject getSubjectFromResultSet (ResultSet rs) throws SQLException {
+        Subject subject = new Subject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+        return subject;
+    }
+
+    public ArrayList<Student> students (int studyLevel, int studyYear) {
         ArrayList<Student> result = new ArrayList<>();
 
         try {
@@ -117,6 +135,22 @@ public class CollegeDAO {
         }
 
         return result;
+    }
+
+    public ArrayList<Subject> subjects (int semester) {
+        ArrayList<Subject> subjects = new ArrayList<>();
+
+        try {
+            proba.setInt(1, semester);
+            ResultSet resultSet = proba.executeQuery();
+            while (resultSet.next()) {
+                Subject subject = getSubjectFromResultSet(resultSet);
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return subjects;
     }
 
     public void addStudent (Student student) {
@@ -143,6 +177,19 @@ public class CollegeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getMaxId () {
+        int id = 1;
+        try {
+            ResultSet resultSet = setStudentIdQuery.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
 }

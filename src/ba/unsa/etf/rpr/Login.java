@@ -17,7 +17,6 @@ import java.io.IOException;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class Login {
-    StudentsModel model;
     HomeController controller;
 
     @FXML
@@ -29,9 +28,6 @@ public class Login {
 
     @FXML
     public void clickOk(ActionEvent actionEvent) {
-        model = new StudentsModel();
-        model.set();
-
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
         try {
@@ -40,7 +36,6 @@ public class Login {
             e.printStackTrace();
         }
         controller = loader.getController();
-        controller.setModel(model);
 
         ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
 

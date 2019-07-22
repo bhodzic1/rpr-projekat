@@ -64,7 +64,8 @@ public class RegistrationForm implements Initializable {
     private boolean studyLevelValid = true;
     private boolean studyYearValid = true;
     private int studyLevel = 1;
-    private StudentsModel model;
+
+
     private boolean isNotEmptyValidation (String string) {
         if (string.equals(""))
             return false;
@@ -127,20 +128,19 @@ public class RegistrationForm implements Initializable {
         return true;
     }
 
-    public void set (StudentsModel model) {
-        this.model = model;
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         firstnameValid = false;
         lastnameValid = false;
-        idValid = false;
+        idValid = true;
         idNumberValid = false;
         dateValid = false;
         addressValid = false;
         emailValid = false;
 
+        idField.setText(String.valueOf(dao.getMaxId()));
         addButton.getStyleClass().add("addBtn");
 
         nameField.textProperty().addListener(new ChangeListener<String>() {
@@ -173,7 +173,7 @@ public class RegistrationForm implements Initializable {
             }
         });
 
-        idField.textProperty().addListener(new ChangeListener<String>() {
+        /*idField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (isIdValid(newValue)) {
@@ -186,7 +186,7 @@ public class RegistrationForm implements Initializable {
                     idValid = false;
                 }
             }
-        });
+        });*/
 
         dateField.setConverter(new StringConverter<LocalDate>()
         {

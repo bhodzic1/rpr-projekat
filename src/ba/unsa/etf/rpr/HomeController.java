@@ -26,16 +26,9 @@ public class HomeController implements Initializable {
     private Button listButton;
 
 
-    private ListOfStudentsFilter filter;
     private RegistrationForm formController;
-    StudentsModel model;
+    private ListOfStudents listOfStudents;
 
-    public HomeController(StudentsModel model) {
-        this.model = model;
-    }
-    public void setModel(StudentsModel model){
-        this.model = model;
-    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -51,7 +44,6 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
         formController = loader.getController();
-        formController.set(model);
         myStage.setTitle("Student registration");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         myStage.setResizable(false);
@@ -60,16 +52,14 @@ public class HomeController implements Initializable {
 
     @FXML
     public void filter (ActionEvent actionEvent) {
-
         Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudentsFilter.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudents.fxml"));
         try {
           loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        filter = loader.getController();
-        filter.set(model);
+        listOfStudents = loader.getController();
         myStage.setTitle("Student registration");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 

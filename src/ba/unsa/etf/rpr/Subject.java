@@ -11,7 +11,7 @@ public class Subject {
     private SimpleStringProperty professorName = new SimpleStringProperty("");
     private SimpleIntegerProperty semester = new SimpleIntegerProperty(0);
 
-    public Subject(String name, int id, String professorName, int semester) {
+    public Subject(int id, String name,  String professorName, int semester) {
         this.name = new SimpleStringProperty(name);
         this.id = new SimpleIntegerProperty(id);
         this.professorName = new SimpleStringProperty(professorName);
@@ -82,5 +82,10 @@ public class Subject {
 
     public void setStudent(Student student) { //Register one student to subject
         this.students.add(student);
+    }
+
+    @Override
+    public String toString () {
+        return this.name.get() + "\n";
     }
 }

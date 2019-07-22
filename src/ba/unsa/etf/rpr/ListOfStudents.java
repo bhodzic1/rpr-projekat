@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,59 +24,107 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class ListOfStudents implements Initializable {
 
-
+    @FXML
+    private Tab bachelorTab;
 
     @FXML
-    private TableView<Student> table;
+    private ListView<Subject> listViewBachelor;
 
     @FXML
-    private TableColumn<Student, String> nameColumn;
+    private TableView<Student> tableViewBachelor;
 
     @FXML
-    private TableColumn<Student, String> lastnameColumn;
+    private TableColumn<Student, String> nameBachelor;
 
     @FXML
-    private TableColumn<Student, String> indexColumn;
+    private TableColumn<Student, String> lastnameBachelor;
 
     @FXML
-    private ListView<String> listView;
+    private TableColumn<Student, String> indexBachelor;
 
     @FXML
-    private Button reportBtn;
+    private Tab masterTab;
 
+    @FXML
+    private ListView<?> listViewMaster;
 
-    private SubjectReport subjectReport;
-    private String selectedSubject = null;
-    private Student selectedStudent = null;
-    private ObservableList<String> list = FXCollections.observableArrayList();
-    private int level;
-    public ObservableList<Student> k = FXCollections.observableArrayList();
-    public StudentsModel model;
-    public ListOfStudents () {}
+    @FXML
+    private TableView<?> tableViewMaster;
 
-    public void setList (ObservableList<String> l, int level, StudentsModel model) {
-        this.list = l;
-        listView.getItems().addAll(list);
-        this.level = level;
-        this.model = model;
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        lastnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-        indexColumn.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
-        if (level == 1) {
-            k = model.getStudentsOfFirstYear();
-            table.setItems(model.getStudentsOfFirstYear());
-        } else if (level == 2) {
-            k = model.getStudentsOfSecondYear();
-            table.setItems(model.getStudentsOfSecondYear());
-        }
-    }
+    @FXML
+    private TableColumn<?, ?> nameMaster;
+
+    @FXML
+    private TableColumn<?, ?> lastnameMaster;
+
+    @FXML
+    private TableColumn<?, ?> indexMaster;
+
+    @FXML
+    private ChoiceBox<String> year;
+
+    @FXML
+    private ChoiceBox<String> semester;
+
+    @FXML
+    private Button generateBtn;
+
+    @FXML
+    private Button subjectReportBtn;
+
+    @FXML
+    private Button studentReportBtn;
+
+    @FXML
+    private Button deleteBtn;
+
+    private CollegeDAO dao = CollegeDAO.getInstance();
+    private int semesterValue = 0;
+    private int tempSemester = 0;
+    private int tempYear = 0;
+    public ObservableList<Subject> list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listView.setOrientation(Orientation.VERTICAL);
+
+        year.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("1")) {
+                    tempYear = 1;
+                } else if (newValue.equals("2")) {
+                    tempYear = 3;
+                } else {
+                    tempYear = 5;
+                }
+            }
+        });
+
+        semester.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("2")) {
+                    tempSemester = 1;
+                } else {
+                    tempSemester = 0;
+                }
+            }
+        });
+
     }
 
-    @FXML
+    public void generateList (ActionEvent actionEvent) {
+        semesterValue = tempSemester + tempYear;
+        list = FXCollections.observableArrayList(dao.subjects(semesterValue));
+        listViewBachelor.getItems().setAll(list);
+        StudentsModel model = new StudentsModel();
+        nameBachelor.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lastnameBachelor.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        indexBachelor.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
+        tableViewBachelor.setItems(FXCollections.observableArrayList(dao.students(1, tempYear)));
+    }
+
+    /*@FXML
     public void report (ActionEvent actionEvent) {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             selectedSubject = listView.getSelectionModel().getSelectedItem();
@@ -126,6 +176,6 @@ public class ListOfStudents implements Initializable {
             alert.setContentText("You need to select a student.");
             alert.show();
         }
-    }
+    }*/
 
 }

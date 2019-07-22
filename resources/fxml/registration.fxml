@@ -56,7 +56,7 @@
                </FXCollections>
            </items>
        </ChoiceBox>
-      <TextField fx:id="idField" layoutX="300.0" layoutY="51.0" promptText="ID" />
+      <TextField fx:id="idField" editable="false" layoutX="300.0" layoutY="51.0" promptText="ID" />
       <Label layoutX="300.0" layoutY="97.0" text="Identification number">
          <font>
             <Font name="Calibri Bold" size="14.0" />

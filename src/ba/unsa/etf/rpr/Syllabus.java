@@ -13,7 +13,7 @@ public class Syllabus {
     private ObservableList<String> subjectsOfFirstYear2 = FXCollections.observableArrayList("Operativni sistemi", "Matematika 2", "Tehnike programiranja", "Vjerovatnoća i statistika", "Matematička logika");
     private ObservableList<String> subjectsOfSecondYear1 = FXCollections.observableArrayList("ASP", "RPR", "Diskretna matematika", "Sistemsko programiranje", "OBP", "Logički dizajn");
     private ObservableList<String> subjectsOfSecondYear2 = FXCollections.observableArrayList("OOAD", "RMA", "Računarske arhitekture", "AFJ", "Ugradbeni sistemi", "ORM");
-    private Map<Subject, ArrayList<Student>> mapa = new HashMap<>();
+
 
     public Syllabus () {
         /*Subject computerScience = new Subject("Osnove računarstva", 1001, "Vedran Ljubović", 1);
