@@ -46,19 +46,19 @@ public class ListOfStudents implements Initializable {
     private Tab masterTab;
 
     @FXML
-    private ListView<?> listViewMaster;
+    private ListView<Subject> listViewMaster;
 
     @FXML
-    private TableView<?> tableViewMaster;
+    private TableView<Student> tableViewMaster;
 
     @FXML
-    private TableColumn<?, ?> nameMaster;
+    private TableColumn<Student, String> nameMaster;
 
     @FXML
-    private TableColumn<?, ?> lastnameMaster;
+    private TableColumn<Student, String> lastnameMaster;
 
     @FXML
-    private TableColumn<?, ?> indexMaster;
+    private TableColumn<Student, String> indexMaster;
 
     @FXML
     private ChoiceBox<String> year;
@@ -79,6 +79,8 @@ public class ListOfStudents implements Initializable {
     private Button deleteBtn;
 
     private CollegeDAO dao = CollegeDAO.getInstance();
+    private Subject selectedSubject;
+    private SubjectReport subjectReport;
     private int semesterValue = 0;
     private int tempSemester = 0;
     private int tempYear = 0;
@@ -86,6 +88,8 @@ public class ListOfStudents implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        generateBtn.getStyleClass().add("btnBlue");
+        deleteBtn.getStyleClass().add("btnRed");
 
         year.valueProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -115,43 +119,52 @@ public class ListOfStudents implements Initializable {
 
     public void generateList (ActionEvent actionEvent) {
         semesterValue = tempSemester + tempYear;
+
         list = FXCollections.observableArrayList(dao.subjects(semesterValue));
         listViewBachelor.getItems().setAll(list);
-        StudentsModel model = new StudentsModel();
+
         nameBachelor.setCellValueFactory(new PropertyValueFactory<>("name"));
         lastnameBachelor.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         indexBachelor.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
         tableViewBachelor.setItems(FXCollections.observableArrayList(dao.students(1, tempYear)));
-    }
 
-    /*@FXML
-    public void report (ActionEvent actionEvent) {
-        if (listView.getSelectionModel().getSelectedItem() != null) {
-            selectedSubject = listView.getSelectionModel().getSelectedItem();
-            Stage myStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            subjectReport = loader.getController();
-            subjectReport.setTextForTitle(selectedSubject);
-            myStage.setTitle("Student registration");
-            myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        nameMaster.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lastnameMaster.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        indexMaster.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
+        tableViewMaster.setItems(FXCollections.observableArrayList(dao.students(2, tempYear)));
 
-            myStage.setResizable(false);
-            myStage.show();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Subject report");
-            alert.setHeaderText("Subject is not selected.");
-            alert.setContentText("You need to select subject.");
-            alert.show();
-        }
     }
 
     @FXML
+    public void report (ActionEvent actionEvent) {
+        if (bachelorTab.isSelected()) {
+            if (listViewBachelor.getSelectionModel().getSelectedItem() != null) {
+                selectedSubject = listViewBachelor.getSelectionModel().getSelectedItem();
+                Stage myStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                subjectReport = loader.getController();
+                subjectReport.set(selectedSubject.toString(), selectedSubject.getId());
+                myStage.setTitle("Subject report");
+                myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+                myStage.setResizable(false);
+                myStage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Subject report");
+                alert.setHeaderText("Subject is not selected.");
+                alert.setContentText("You need to select subject.");
+                alert.show();
+            }
+        }
+    }
+
+    /*@FXML
     public void studentReport (ActionEvent actionEvent) {
         if (table.getSelectionModel().getSelectedItem() != null) {
             selectedStudent = table.getSelectionModel().getSelectedItem();

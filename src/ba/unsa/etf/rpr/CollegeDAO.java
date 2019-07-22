@@ -14,7 +14,8 @@ public class CollegeDAO {
     private Connection conn;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
 
-    private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getMaxId;
+    private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
+    getGradeForStudent, getStudentWithId, getSubjectReportModel;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -44,6 +45,11 @@ public class CollegeDAO {
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
+            getStudentsWithSubjectId = conn.prepareStatement("SELECT student FROM grade WHERE subject = ?");
+            getGradeForStudent = conn.prepareStatement("SELECT grade FROM grade WHERE student = ? AND subject = ?");
+            getStudentWithId = conn.prepareStatement("SELECT * FROM student WHERE index_number = ?");
+            getSubjectReportModel = conn.prepareStatement("SELECT student.name, student.lastname, grade.id, grade.grade FROM student, grade WHERE student.index_number = grade.student AND grade.subject = ?");
+
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
         } catch (SQLException e) {
@@ -89,7 +95,7 @@ public class CollegeDAO {
     }
 
     public void ispisi(){
-        try {
+        /*try {
             ResultSet resultSet = studentQuery.executeQuery();
             String string = resultSet.getString(1);
             System.out.println(string);
@@ -105,7 +111,7 @@ public class CollegeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -117,6 +123,16 @@ public class CollegeDAO {
     private Subject getSubjectFromResultSet (ResultSet rs) throws SQLException {
         Subject subject = new Subject(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
         return subject;
+    }
+
+    private Grade getGradeFromResultSet (ResultSet rs) throws SQLException {
+        Grade grade = new Grade(rs.getInt(1), rs.getInt(2), LocalDate.parse(rs.getString(3), formatter), rs.getInt(4), rs.getInt(5));
+        return grade;
+    }
+
+    private SubjectReportModel getSubjectReportModelFromResultSet (ResultSet rs) throws SQLException {
+        SubjectReportModel model = new SubjectReportModel(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+        return model;
     }
 
     public ArrayList<Student> students (int studyLevel, int studyYear) {
@@ -190,6 +206,41 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return id;
+    }
+
+    public ArrayList<Grade> getGradeWithSubjectId (int id) {
+        ArrayList<Grade> grades = new ArrayList<>();
+
+        try {
+            getStudentsWithSubjectId.setInt(1, id);
+            ResultSet resultSet = getStudentsWithSubjectId.executeQuery();
+
+            while (resultSet.next()) {
+                Grade grade = getGradeFromResultSet(resultSet);
+                grades.add(grade);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return grades;
+    }
+
+    public ArrayList<SubjectReportModel> getSubjectReportModel (int id) {
+        ArrayList<SubjectReportModel> models = new ArrayList<>();
+        try {
+            getSubjectReportModel.setInt(1, id);
+            ResultSet resultSet = getSubjectReportModel.executeQuery();
+
+            while (resultSet.next()) {
+                SubjectReportModel model = getSubjectReportModelFromResultSet(resultSet);
+                models.add(model);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return models;
     }
 
 }

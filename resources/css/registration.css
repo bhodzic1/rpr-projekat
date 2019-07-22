@@ -12,3 +12,11 @@
     -fx-background-insets: 0;
     -fx-text-fill: white;
 }
+
+.btnBlue {
+    -fx-background-color: #52e6eb;
+}
+
+.btnRed {
+    -fx-background-color: #f20707;
+}

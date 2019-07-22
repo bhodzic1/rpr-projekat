@@ -14,7 +14,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
+<?import java.net.URL?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfStudents">
+    <stylesheets>
+        <URL value="@/css/registration.css" />
+    </stylesheets>
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -82,7 +86,7 @@
    <bottom>
       <Pane prefHeight="54.0" prefWidth="695.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="subjectReportBtn" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="Subject report" />
+            <Button fx:id="subjectReportBtn" onAction="#report" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="Subject report" />
             <Button fx:id="studentReportBtn" layoutX="132.0" layoutY="11.0" mnemonicParsing="false" text="Student report" />
             <Button fx:id="deleteBtn" layoutX="627.0" layoutY="11.0" mnemonicParsing="false" text="Delete" />
          </children>
