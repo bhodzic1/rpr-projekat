@@ -81,6 +81,7 @@ public class ListOfStudents implements Initializable {
     private CollegeDAO dao = CollegeDAO.getInstance();
     private Subject selectedSubject;
     private SubjectReport subjectReport;
+    private Student selectedStudent;
     private int semesterValue = 0;
     private int tempSemester = 0;
     private int tempYear = 0;
@@ -154,6 +155,34 @@ public class ListOfStudents implements Initializable {
 
                 myStage.setResizable(false);
                 myStage.show();
+
+                myStage.setOnHiding( event -> {
+                    subjectReport.resetLabels();
+                } );
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Subject report");
+                alert.setHeaderText("Subject is not selected.");
+                alert.setContentText("You need to select subject.");
+                alert.show();
+            }
+        } else {
+            if (listViewMaster.getSelectionModel().getSelectedItem() != null) {
+                selectedSubject = listViewMaster.getSelectionModel().getSelectedItem();
+                Stage myStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                subjectReport = loader.getController();
+                subjectReport.set(selectedSubject.toString(), selectedSubject.getId());
+                myStage.setTitle("Subject report");
+                myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+                myStage.setResizable(false);
+                myStage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Subject report");
@@ -164,31 +193,35 @@ public class ListOfStudents implements Initializable {
         }
     }
 
-    /*@FXML
+    @FXML
     public void studentReport (ActionEvent actionEvent) {
-        if (table.getSelectionModel().getSelectedItem() != null) {
-            selectedStudent = table.getSelectionModel().getSelectedItem();
-            Stage stage = new Stage();
-            Parent root = null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
-            StudentReport studentReport = new StudentReport(selectedStudent);
-            loader.setController(studentReport);
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (bachelorTab.isSelected()) {
+            if (tableViewBachelor.getSelectionModel().getSelectedItem() != null) {
+                selectedStudent = tableViewBachelor.getSelectionModel().getSelectedItem();
+                Stage stage = new Stage();
+                Parent root = null;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
+                StudentReport studentReport = new StudentReport(selectedStudent);
+                loader.setController(studentReport);
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                stage.setTitle("Student report");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Student report");
+                alert.setHeaderText("Student is not selected.");
+                alert.setContentText("You need to select a student.");
+                alert.show();
             }
-            stage.setTitle("Student report");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.setResizable(false);
-            stage.show();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Student report");
-            alert.setHeaderText("Student is not selected.");
-            alert.setContentText("You need to select a student.");
-            alert.show();
         }
-    }*/
+    }
 
 }

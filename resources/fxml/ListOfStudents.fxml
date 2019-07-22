@@ -87,7 +87,7 @@
       <Pane prefHeight="54.0" prefWidth="695.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="subjectReportBtn" onAction="#report" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="Subject report" />
-            <Button fx:id="studentReportBtn" layoutX="132.0" layoutY="11.0" mnemonicParsing="false" text="Student report" />
+            <Button fx:id="studentReportBtn" onAction="#studentReport" layoutX="132.0" layoutY="11.0" mnemonicParsing="false" text="Student report" />
             <Button fx:id="deleteBtn" layoutX="627.0" layoutY="11.0" mnemonicParsing="false" text="Delete" />
          </children>
       </Pane>

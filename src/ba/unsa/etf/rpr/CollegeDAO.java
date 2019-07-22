@@ -15,7 +15,7 @@ public class CollegeDAO {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
-    getGradeForStudent, getStudentWithId, getSubjectReportModel;
+    getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -49,6 +49,8 @@ public class CollegeDAO {
             getGradeForStudent = conn.prepareStatement("SELECT grade FROM grade WHERE student = ? AND subject = ?");
             getStudentWithId = conn.prepareStatement("SELECT * FROM student WHERE index_number = ?");
             getSubjectReportModel = conn.prepareStatement("SELECT student.name, student.lastname, grade.id, grade.grade FROM student, grade WHERE student.index_number = grade.student AND grade.subject = ?");
+            getNumberOfStudentsOnSubject = conn.prepareStatement("SELECT COUNT(id) FROM grade WHERE subject = ?");
+            getNumberOfPassedStudentsOnSubject = conn.prepareStatement("SELECT COUNT(id) FROM grade WHERE grade > 5 AND subject = ?");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -241,6 +243,34 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return models;
+    }
+
+    public int getNumberOfStudentsOnSubject (int id) {
+        int number = 0;
+
+        try {
+            getNumberOfStudentsOnSubject.setInt(1, id);
+            ResultSet resultSet = getNumberOfStudentsOnSubject.executeQuery();
+            number = resultSet.getRow();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return number;
+    }
+
+    public int getNumberOfPassedStudentsOnSubject (int id) {
+        int number = 0;
+
+        try {
+            getNumberOfPassedStudentsOnSubject.setInt(1, id);
+            ResultSet resultSet = getNumberOfPassedStudentsOnSubject.executeQuery();
+            number = resultSet.getRow();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return number;
     }
 
 }

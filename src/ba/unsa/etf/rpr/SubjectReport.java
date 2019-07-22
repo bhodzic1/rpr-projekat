@@ -24,6 +24,15 @@ public class SubjectReport implements Initializable {
     private Label title;
 
     @FXML
+    private Label number;
+
+    @FXML
+    private Label passed;
+
+    @FXML
+    private Label percentage;
+
+    @FXML
     private TableView<SubjectReportModel> table;
 
     @FXML
@@ -39,8 +48,12 @@ public class SubjectReport implements Initializable {
     private TableColumn<Grade, String> gradeColumn;
 
     private CollegeDAO dao = CollegeDAO.getInstance();
-    private int subjectId;
+    private int subjectId = 0;
     private ObservableList<Student> students = FXCollections.observableArrayList();
+
+    private int n = 0;
+    private int p = 0;
+
 
     public void set (String string, int id) {
         title.setText(string);
@@ -54,10 +67,29 @@ public class SubjectReport implements Initializable {
         indexColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
         table.setItems(FXCollections.observableArrayList(models));
+
+
+
+
+        n = dao.getNumberOfStudentsOnSubject(subjectId);
+        p = dao.getNumberOfPassedStudentsOnSubject(subjectId);
+
+
+
+        number.setText(String.valueOf(n));
+        passed.setText(String.valueOf(p));
+        percentage.setText(String.valueOf(p*100/n) + "%");
+    }
+
+    public void resetLabels () {
+        number.setText("");
+        passed.setText("");
+        percentage.setText("");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
     }
 }

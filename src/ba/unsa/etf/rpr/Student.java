@@ -17,7 +17,6 @@ public class Student {
     private SimpleIntegerProperty studyYear = new SimpleIntegerProperty(1);
     private SimpleStringProperty address = new SimpleStringProperty("");
     private SimpleStringProperty email = new SimpleStringProperty("");
-    private Map<Subject, Integer> grades = new HashMap<>();
 
     public Student(String name, String lastname, int indexNumber, LocalDate birthday, String identificationNumber, int studyLevel, int year, String address, String email) {
         this.name = new SimpleStringProperty(name);
@@ -30,6 +29,8 @@ public class Student {
         this.address = new SimpleStringProperty(address);
         this.email = new SimpleStringProperty(email);
     }
+
+    public Student () {}
 
     public String getName() {
         return name.get();
@@ -97,14 +98,6 @@ public class Student {
 
     public void setStudyLevel(int studyLevel) {
         this.studyLevel.set(studyLevel);
-    }
-
-    public Map<Subject, Integer> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(Map<Subject, Integer> grades) {
-        this.grades = grades;
     }
 
     public int getStudyYear() {
