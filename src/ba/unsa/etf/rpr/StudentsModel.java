@@ -13,6 +13,7 @@ public class StudentsModel {
     private LocalDate date;
     private SimpleStringProperty professor = new SimpleStringProperty();
 
+
     public StudentsModel() {
     }
 

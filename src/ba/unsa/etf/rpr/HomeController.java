@@ -36,6 +36,8 @@ public class HomeController implements Initializable {
 
     private RegistrationForm formController;
     private ListOfStudents listOfStudents;
+    private CreateProfessor createProfessorController;
+    private CreateSubject createSubjectCotroller;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,6 +71,40 @@ public class HomeController implements Initializable {
         }
         listOfStudents = loader.getController();
         myStage.setTitle("Student registration");
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
+    @FXML
+    public void createProf (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createProfessor.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        createProfessorController = loader.getController();
+        myStage.setTitle("Create professor");
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
+    @FXML
+    public void createSubj (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createSubject.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        createSubjectCotroller = loader.getController();
+        myStage.setTitle("Create subject");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
         myStage.setResizable(false);

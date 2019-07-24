@@ -50,7 +50,7 @@ public class StudentReport implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        professorColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        professorColumn.setCellValueFactory(new PropertyValueFactory<>("professor"));
         table.setItems(FXCollections.observableArrayList(models));
 
     }

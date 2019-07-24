@@ -16,7 +16,7 @@ public class CollegeDAO {
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
     getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel;
+            getStudentReportModel, getMaxIdProfessor;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -52,8 +52,8 @@ public class CollegeDAO {
             getSubjectReportModel = conn.prepareStatement("SELECT student.name, student.lastname, grade.id, grade.grade FROM student, grade WHERE student.index_number = grade.student AND grade.subject = ?");
             getNumberOfStudentsOnSubject = conn.prepareStatement("SELECT COUNT(grade.id) FROM grade, subject WHERE grade.subject = ? AND grade.subject = subject.id");
             getNumberOfPassedStudentsOnSubject = conn.prepareStatement("SELECT COUNT(grade.id) FROM grade, subject WHERE grade.grade > 5 AND grade.subject = ? AND subject.id = grade.subject");
-            getStudentReportModel = conn.prepareStatement("SELECT subject.name, grade.grade, grade.date, professor.name FROM student, subject, grade, professor WHERE student.index_number = ? AND student.index_number = grade.student AND grade.subject = subject.id AND subject.professor = professor.id");
-
+            getStudentReportModel = conn.prepareStatement("SELECT subject.name, grade.grade, grade.date, professor.name || ' ' || professor.lastname FROM student, subject, grade, professor WHERE student.index_number = ? AND student.index_number = grade.student AND grade.subject = subject.id AND subject.professor = professor.id");
+            getMaxIdProfessor = conn.prepareStatement("SELECT MAX(id)+1 FROM professor");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -212,6 +212,19 @@ public class CollegeDAO {
         int id = 1;
         try {
             ResultSet resultSet = setStudentIdQuery.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public int getMaxIdProfessor () {
+        int id = 1;
+        try {
+            ResultSet resultSet = getMaxIdProfessor.executeQuery();
             if (resultSet.next()) {
                 id = resultSet.getInt(1);
             }
