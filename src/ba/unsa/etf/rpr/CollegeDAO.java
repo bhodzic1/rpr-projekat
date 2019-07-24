@@ -16,7 +16,7 @@ public class CollegeDAO {
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
     getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel, getMaxIdProfessor;
+            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -45,6 +45,7 @@ public class CollegeDAO {
             getStudentsQuery = conn.prepareStatement("SELECT * FROM student WHERE study_level = ? AND study_year = ?");
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
+            addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
             getStudentsWithSubjectId = conn.prepareStatement("SELECT student FROM grade WHERE subject = ?");
             getGradeForStudent = conn.prepareStatement("SELECT grade FROM grade WHERE student = ? AND subject = ?");
@@ -54,6 +55,8 @@ public class CollegeDAO {
             getNumberOfPassedStudentsOnSubject = conn.prepareStatement("SELECT COUNT(grade.id) FROM grade, subject WHERE grade.grade > 5 AND grade.subject = ? AND subject.id = grade.subject");
             getStudentReportModel = conn.prepareStatement("SELECT subject.name, grade.grade, grade.date, professor.name || ' ' || professor.lastname FROM student, subject, grade, professor WHERE student.index_number = ? AND student.index_number = grade.student AND grade.subject = subject.id AND subject.professor = professor.id");
             getMaxIdProfessor = conn.prepareStatement("SELECT MAX(id)+1 FROM professor");
+            getUsernamesFromProfessor = conn.prepareStatement("SELECT username FROM professor");
+
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -208,6 +211,23 @@ public class CollegeDAO {
         }
     }
 
+    public void addProfessor (Professor professor) {
+        try {
+                addProfessorQuery.setInt(1, professor.getId());
+                addProfessorQuery.setString(2, professor.getName());
+                addProfessorQuery.setString(3, professor.getLastname());
+                addProfessorQuery.setString(4, formatter.format(professor.getBirthday()));
+                addStudentQuery.setString(5, professor.getUsername());
+                addStudentQuery.setString(6, professor.getPassword());
+
+                addStudentQuery.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getMaxId () {
         int id = 1;
         try {
@@ -317,6 +337,21 @@ public class CollegeDAO {
         }
 
         return number;
+    }
+
+    public ArrayList<String> getUsernameFromProfessor () {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet resultSet = getUsernamesFromProfessor.executeQuery();
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return list;
     }
 
 }
