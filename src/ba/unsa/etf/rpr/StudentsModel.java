@@ -1,88 +1,69 @@
 package ba.unsa.etf.rpr;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
 public class StudentsModel {
-    private ObservableList<Student> studentsOfFirstYear = FXCollections.observableArrayList();
-    private ObservableList<Student> studentsOfSecondYear = FXCollections.observableArrayList();
-    private ObservableList<Student> studentsOfThirdYear = FXCollections.observableArrayList();
-    private ObservableList<Student> studentsOfFourthYear = FXCollections.observableArrayList();
-    private ObservableList<Student> studentsOfFifthYear = FXCollections.observableArrayList();
-    private ObservableList<Student> students = FXCollections.observableArrayList();
+    private SimpleStringProperty name = new SimpleStringProperty();
+    private SimpleIntegerProperty grade = new SimpleIntegerProperty();
+    private LocalDate date;
+    private SimpleStringProperty professor = new SimpleStringProperty();
 
-    private CollegeDAO dao = CollegeDAO.getInstance();
-
-    public StudentsModel () {};
-
-    public void set () {
-        studentsOfFirstYear = FXCollections.observableArrayList(dao.students(1, 1));
-        studentsOfSecondYear = FXCollections.observableArrayList(dao.students(1, 2));
-        studentsOfThirdYear = FXCollections.observableArrayList(dao.students(1, 3));
-        studentsOfFourthYear = FXCollections.observableArrayList(dao.students(2, 1));
-        studentsOfFifthYear = FXCollections.observableArrayList(dao.students(2, 2));
+    public StudentsModel() {
     }
 
-    public void addStudent (Student student, int level) {
-        if (level == 1) {
-            studentsOfFirstYear.add(student);
-        } else if (level == 2) {
-            studentsOfSecondYear.add(student);
-        } else if (level == 3) {
-            studentsOfThirdYear.add(student);
-        } else if (level == 4) {
-            studentsOfFourthYear.add(student);
-        } else studentsOfFifthYear.add(student);
+    public StudentsModel(String name, int grade, LocalDate date, String professor) {
+        this.name = new SimpleStringProperty(name);
+        this.grade = new SimpleIntegerProperty(grade);
+        this.date = date;
+        this.professor = new SimpleStringProperty(professor);
     }
 
-    public ObservableList<Student> getStudentsOfFirstYear() {
-        return studentsOfFirstYear;
+    public String getName() {
+        return name.get();
     }
 
-    public void setStudentsOfFirstYear(ObservableList<Student> students) {
-        this.studentsOfFirstYear = students;
+    public SimpleStringProperty nameProperty() {
+        return name;
     }
 
-    public ObservableList<Student> getStudentsOfSecondYear() {
-        return studentsOfSecondYear;
+    public void setName(String name) {
+        this.name.set(name);
     }
 
-    public void setStudentsOfSecondYear(ObservableList<Student> studentsOfSecondYear) {
-        this.studentsOfSecondYear = studentsOfSecondYear;
+    public int getGrade() {
+        return grade.get();
     }
 
-    public ObservableList<Student> getStudentsOfThirdYear() {
-        return studentsOfThirdYear;
+    public SimpleIntegerProperty gradeProperty() {
+        return grade;
     }
 
-    public void setStudentsOfThirdYear(ObservableList<Student> studentsOfThirdYear) {
-        this.studentsOfThirdYear = studentsOfThirdYear;
+    public void setGrade(int grade) {
+        this.grade.set(grade);
     }
 
-    public ObservableList<Student> getStudentsOfFourthYear() {
-        return studentsOfFourthYear;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setStudentsOfFourthYear(ObservableList<Student> studentsOfFourthYear) {
-        this.studentsOfFourthYear = studentsOfFourthYear;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public ObservableList<Student> getStudentsOfFifthYear() {
-        return studentsOfFifthYear;
+    public String getProfessor() {
+        return professor.get();
     }
 
-    public void setStudentsOfFifthYear(ObservableList<Student> studentsOfFifthYear) {
-        this.studentsOfFifthYear = studentsOfFifthYear;
+    public SimpleStringProperty professorProperty() {
+        return professor;
     }
 
-    @Override
-    public String toString() {
-        String temp = "";
-        for(Student s : students){
-            temp += s.toString();
-        }
-        return temp;
+    public void setProfessor(String professor) {
+        this.professor.set(professor);
     }
 }

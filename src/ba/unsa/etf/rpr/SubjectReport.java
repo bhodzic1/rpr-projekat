@@ -78,7 +78,10 @@ public class SubjectReport implements Initializable {
 
         number.setText(String.valueOf(n));
         passed.setText(String.valueOf(p));
-        percentage.setText(String.valueOf(p*100/n) + "%");
+        if (p != 0) {
+            percentage.setText(String.valueOf(p * 100 / n) + "%");
+        } else percentage.setText("0%");
+
     }
 
     public void resetLabels () {

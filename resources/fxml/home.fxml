@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.HomeController">
    <children>
       <SplitPane dividerPositions="0.30904522613065327" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
         <items>
@@ -32,6 +31,8 @@
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
                   </Button>
+                  <Button fx:id="createProfessor" onAction="#createProf" layoutX="437.0" layoutY="50.0" mnemonicParsing="false" text="Create professor" />
+                  <Button fx:id="createSubject" onAction="#createSubj" layoutX="437.0" layoutY="103.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Create subject" />
                </children>
             </AnchorPane>
         </items>

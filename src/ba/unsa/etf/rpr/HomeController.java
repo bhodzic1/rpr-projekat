@@ -22,8 +22,16 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button registryButton;
+
     @FXML
     private Button listButton;
+
+    @FXML
+    private Button createProfessor;
+
+    @FXML
+    private Button createSubject;
+
 
 
     private RegistrationForm formController;

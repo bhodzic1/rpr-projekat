@@ -6,20 +6,19 @@ import javafx.beans.property.SimpleStringProperty;
 import java.util.ArrayList;
 
 public class Subject {
-    private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private SimpleStringProperty professorName = new SimpleStringProperty("");
+    private SimpleStringProperty name = new SimpleStringProperty("");
     private SimpleIntegerProperty semester = new SimpleIntegerProperty(0);
+    private SimpleIntegerProperty professor = new SimpleIntegerProperty();
 
-    public Subject(int id, String name,  String professorName, int semester) {
+    public Subject(int id, String name, int semester, int professor) {
         this.name = new SimpleStringProperty(name);
         this.id = new SimpleIntegerProperty(id);
-        this.professorName = new SimpleStringProperty(professorName);
         this.semester = new SimpleIntegerProperty(semester);
+        this.professor = new SimpleIntegerProperty(professor);
     }
 
 
-    private ArrayList<Student> students = new ArrayList<>();
 
     public Subject () {};
 
@@ -48,18 +47,6 @@ public class Subject {
         this.id.set(id);
     }
 
-    public String getProfessorName() {
-        return professorName.get();
-    }
-
-    public SimpleStringProperty professorNameProperty() {
-        return professorName;
-    }
-
-    public void setProfessorName(String professorName) {
-        this.professorName.set(professorName);
-    }
-
     public int getSemester() {
         return semester.get();
     }
@@ -72,20 +59,21 @@ public class Subject {
         this.semester.set(semester);
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) { //Register more students to subject
-        this.students = students;
-    }
-
-    public void setStudent(Student student) { //Register one student to subject
-        this.students.add(student);
-    }
 
     @Override
     public String toString () {
         return this.name.get() + "\n";
+    }
+
+    public int getProfessor() {
+        return professor.get();
+    }
+
+    public SimpleIntegerProperty professorProperty() {
+        return professor;
+    }
+
+    public void setProfessor(int professor) {
+        this.professor.set(professor);
     }
 }

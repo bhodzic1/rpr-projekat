@@ -81,6 +81,7 @@ public class ListOfStudents implements Initializable {
     private CollegeDAO dao = CollegeDAO.getInstance();
     private Subject selectedSubject;
     private SubjectReport subjectReport;
+    private StudentReport studentReport;
     private Student selectedStudent;
     private int semesterValue = 0;
     private int tempSemester = 0;
@@ -199,17 +200,18 @@ public class ListOfStudents implements Initializable {
             if (tableViewBachelor.getSelectionModel().getSelectedItem() != null) {
                 selectedStudent = tableViewBachelor.getSelectionModel().getSelectedItem();
                 Stage stage = new Stage();
-                Parent root = null;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
-                StudentReport studentReport = new StudentReport(selectedStudent);
-                loader.setController(studentReport);
+
+
                 try {
-                    root = loader.load();
+                    loader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                studentReport = loader.getController();
+                studentReport.set(selectedStudent.getIndexNumber(), selectedStudent.getName() + " " + selectedStudent.getLastname());
                 stage.setTitle("Student report");
-                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
                 stage.setResizable(false);
                 stage.show();
 
