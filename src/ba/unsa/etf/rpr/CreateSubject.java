@@ -31,6 +31,15 @@ public class CreateSubject implements Initializable {
     private Button okBtn;
 
     private CollegeDAO dao = CollegeDAO.getInstance();
+    private boolean nameValid = false;
+    private boolean professorValid = false;
+    private boolean semesterValid = false;
+
+    private boolean isNotEmptyValidation (String string) {
+        if (string.equals(""))
+            return false;
+        return true;
+    }
 
     public void set () {
         professorBox.getItems().setAll(FXCollections.observableArrayList(dao.getNamesProfessor()));
@@ -38,6 +47,8 @@ public class CreateSubject implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
 
     }
 }
