@@ -15,8 +15,9 @@ public class CollegeDAO {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
-    getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor;
+            getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
+            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
+            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -46,6 +47,7 @@ public class CollegeDAO {
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
             addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?)");
+            addSubjectQuery = conn.prepareStatement("INSERT INTO subject VALUES(?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
             getStudentsWithSubjectId = conn.prepareStatement("SELECT student FROM grade WHERE subject = ?");
             getGradeForStudent = conn.prepareStatement("SELECT grade FROM grade WHERE student = ? AND subject = ?");
@@ -57,7 +59,8 @@ public class CollegeDAO {
             getMaxIdProfessor = conn.prepareStatement("SELECT MAX(id)+1 FROM professor");
             getUsernamesFromProfessor = conn.prepareStatement("SELECT username FROM professor");
             getNamesProfessor = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor");
-
+            getIdProfessorFromNameAndLastname = conn.prepareStatement("SELECT id FROM professor WHERE name || ' ' || lastname = ?");
+            getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -262,6 +265,19 @@ public class CollegeDAO {
         return id;
     }
 
+    public int getMaxIdSubject () {
+        int id = 1;
+        try {
+            ResultSet resultSet = getMaxIdSubject.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public ArrayList<Grade> getGradeWithSubjectId (int id) {
         ArrayList<Grade> grades = new ArrayList<>();
 
@@ -373,6 +389,20 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public int getIdProfessorFromNameAndLastname (String name) {
+        int id = 0;
+        try {
+            getIdProfessorFromNameAndLastname.setString(1, name);
+            ResultSet resultSet = getIdProfessorFromNameAndLastname.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
 }
