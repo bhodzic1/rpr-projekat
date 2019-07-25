@@ -104,6 +104,7 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
         createSubjectCotroller = loader.getController();
+        createSubjectCotroller.set();
         myStage.setTitle("Create subject");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 

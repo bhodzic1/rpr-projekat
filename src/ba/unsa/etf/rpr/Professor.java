@@ -96,4 +96,9 @@ public class Professor {
     public void setPassword(String password) {
         this.password.set(password);
     }
+
+    @Override
+    public String toString () {
+        return name + " " + lastname;
+    }
 }

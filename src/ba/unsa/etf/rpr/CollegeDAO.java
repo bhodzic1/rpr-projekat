@@ -16,7 +16,7 @@ public class CollegeDAO {
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
     getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor;
+            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -56,6 +56,7 @@ public class CollegeDAO {
             getStudentReportModel = conn.prepareStatement("SELECT subject.name, grade.grade, grade.date, professor.name || ' ' || professor.lastname FROM student, subject, grade, professor WHERE student.index_number = ? AND student.index_number = grade.student AND grade.subject = subject.id AND subject.professor = professor.id");
             getMaxIdProfessor = conn.prepareStatement("SELECT MAX(id)+1 FROM professor");
             getUsernamesFromProfessor = conn.prepareStatement("SELECT username FROM professor");
+            getNamesProfessor = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -121,7 +122,7 @@ public class CollegeDAO {
             e.printStackTrace();
         }*/
 
-
+        System.out.println(getNamesProfessor());
 
 
     }
@@ -358,6 +359,19 @@ public class CollegeDAO {
         }
 
 
+        return list;
+    }
+
+    public ArrayList<String> getNamesProfessor () {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet resultSet = getNamesProfessor.executeQuery();
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
