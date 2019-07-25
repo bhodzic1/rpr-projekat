@@ -16,7 +16,7 @@ public class CollegeDAO {
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
     getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery;
+            getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -213,14 +213,21 @@ public class CollegeDAO {
 
     public void addProfessor (Professor professor) {
         try {
-                addProfessorQuery.setInt(1, professor.getId());
+                ResultSet resultSet = getMaxIdProfessor.executeQuery();
+                int id = 1;
+
+                if (resultSet.next()) {
+                    id = resultSet.getInt(1);
+                }
+
+                addProfessorQuery.setInt(1, id);
                 addProfessorQuery.setString(2, professor.getName());
                 addProfessorQuery.setString(3, professor.getLastname());
                 addProfessorQuery.setString(4, formatter.format(professor.getBirthday()));
-                addStudentQuery.setString(5, professor.getUsername());
-                addStudentQuery.setString(6, professor.getPassword());
+                addProfessorQuery.setString(5, professor.getUsername());
+                addProfessorQuery.setString(6, professor.getPassword());
 
-                addStudentQuery.executeUpdate();
+                addProfessorQuery.executeUpdate();
 
 
         } catch (SQLException e) {

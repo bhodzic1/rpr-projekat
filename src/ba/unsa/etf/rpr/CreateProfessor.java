@@ -6,9 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -190,8 +192,31 @@ public class CreateProfessor implements Initializable {
 
     @FXML
     public void create (ActionEvent actionEvent) {
-        if (isUsernameValid(usernameField.getText()) && firstnameValid && lastnameValid && dateValid && passwordValid) {
-            Professor professor = new Professor(Integer.valueOf(idField.getText()), nameField.getText(), lastnameField.getText(), dateField.getValue(), usernameField.getText(), passwordField.getText());
+        if (isUsernameValid(usernameField.getText())){
+            if(firstnameValid && lastnameValid && dateValid && passwordValid){
+                Professor professor = new Professor(Integer.valueOf(idField.getText()), nameField.getText(), lastnameField.getText(), dateField.getValue(), usernameField.getText(), passwordField.getText());
+                dao.addProfessor(professor);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Adding a professor");
+                alert.setHeaderText("");
+                alert.setContentText("Professor is added.");
+                alert.show();
+                ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Adding a professor");
+                alert.setHeaderText("Some fields are incorrect!");
+                alert.setContentText("Professor is not added.");
+                alert.show();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Adding a professor");
+            alert.setHeaderText("Username already exists!");
+            alert.setContentText("Professor is not added.");
+            alert.show();
         }
     }
 }

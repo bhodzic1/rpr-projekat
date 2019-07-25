@@ -319,6 +319,7 @@ public class RegistrationForm implements Initializable {
             alert.setHeaderText("");
             alert.setContentText("Student successfully added.");
             alert.show();
+            ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding a student");
@@ -326,6 +327,5 @@ public class RegistrationForm implements Initializable {
             alert.setContentText("Student is not added.");
             alert.show();
         }
-        ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
     }
 }
