@@ -54,6 +54,9 @@ public class CreateSubject implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        okBtn.getStyleClass().add("addBtn");
+        idField.setText(String.valueOf(dao.getMaxIdSubject()));
+
         nameField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -107,10 +110,11 @@ public class CreateSubject implements Initializable {
         if (nameValid && professorValid && semesterValid) {
             Subject subject = new Subject(Integer.valueOf(idField.getText()), nameField.getText(), id,Integer.valueOf(semesterBox.getValue()));
             System.out.println(id);
+            dao.addSubject(subject);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Adding a student");
+            alert.setTitle("Adding a subject");
             alert.setHeaderText("");
-            alert.setContentText("Student successfully added.");
+            alert.setContentText("Subject successfully added.");
             alert.show();
             ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
         } else {

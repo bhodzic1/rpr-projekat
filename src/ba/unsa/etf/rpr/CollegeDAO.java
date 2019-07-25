@@ -239,6 +239,28 @@ public class CollegeDAO {
         }
     }
 
+    public void addSubject (Subject subject) {
+        try {
+            ResultSet resultSet = getMaxIdSubject.executeQuery();
+            int id = 1;
+
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+
+            addSubjectQuery.setInt(1, id);
+            addSubjectQuery.setString(2, subject.getName());
+            addSubjectQuery.setInt(3, subject.getProfessor());
+            addSubjectQuery.setInt(4, subject.getSemester());
+
+            addSubjectQuery.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getMaxId () {
         int id = 1;
         try {

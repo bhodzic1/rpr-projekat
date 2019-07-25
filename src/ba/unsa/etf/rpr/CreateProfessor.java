@@ -62,7 +62,7 @@ public class CreateProfessor implements Initializable {
     private boolean isDateValid (LocalDate localDate) {
         if (localDate.isAfter(LocalDate.now()))
             return false;
-        if (LocalDate.now().getYear() - localDate.getYear() < 17) // It is not possible to going to college before 17th
+        if (LocalDate.now().getYear() - localDate.getYear() < 27) // It is not possible to become a professor before 27th
             return false;
         return true;
     }
