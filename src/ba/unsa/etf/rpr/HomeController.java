@@ -7,7 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -32,6 +38,9 @@ public class HomeController implements Initializable {
     @FXML
     private Button createSubject;
 
+    @FXML
+    private ImageView imageView;
+
 
 
     private RegistrationForm formController;
@@ -41,11 +50,19 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        try {
+            FileInputStream input = new FileInputStream("resources/img/logo.png");
+            Image image = new Image(input);
+            imageView.setImage(image);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void registration (ActionEvent actionEvent) {
+
+
         Stage myStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
         try {

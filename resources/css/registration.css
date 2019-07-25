@@ -20,3 +20,12 @@
 .btnRed {
     -fx-background-color: #f20707;
 }
+
+.logo {
+    -fx-background-image: url("/img/logo.png");
+}
+
+
+#tbDelete {
+    -fx-graphic: url("/img/deleteIcon.png");
+}
