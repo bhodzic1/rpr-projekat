@@ -25,6 +25,9 @@
     -fx-background-image: url("/img/logo.png");
 }
 
+.anchorpane {
+    -fx-background-color: #ffffff;
+}
 
 #tbDelete {
     -fx-graphic: url("/img/deleteIcon.png");
