@@ -50,6 +50,7 @@ public class HomeController implements Initializable {
     private ListOfStudents listOfStudents;
     private CreateProfessor createProfessorController;
     private CreateSubject createSubjectCotroller;
+    private ListOfProfessors listOfProfessors;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,6 +143,8 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
 
+        listOfProfessors = loader.getController();
+        listOfProfessors.set();
         myStage.setTitle("List of professors");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 

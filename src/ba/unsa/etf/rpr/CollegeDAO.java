@@ -17,7 +17,7 @@ public class CollegeDAO {
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
-            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject;
+            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -61,6 +61,7 @@ public class CollegeDAO {
             getNamesProfessor = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor");
             getIdProfessorFromNameAndLastname = conn.prepareStatement("SELECT id FROM professor WHERE name || ' ' || lastname = ?");
             getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
+            getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -140,6 +141,11 @@ public class CollegeDAO {
         return subject;
     }
 
+    private Professor getProfessorFromResultSet (ResultSet rs) throws SQLException {
+        Professor professor = new Professor(rs.getInt(1), rs.getString(2), rs.getString(3), LocalDate.parse(rs.getString(4), formatter), rs.getString(5), rs.getString(6),LocalDate.parse(rs.getString(7), formatter));
+        return professor;
+    }
+
     private Grade getGradeFromResultSet (ResultSet rs) throws SQLException {
         Grade grade = new Grade(rs.getInt(1), rs.getInt(2), LocalDate.parse(rs.getString(3), formatter), rs.getInt(4), rs.getInt(5));
         return grade;
@@ -187,6 +193,22 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return subjects;
+    }
+
+    public ArrayList<Professor> getAllProfessors () {
+        ArrayList<Professor> list = new ArrayList<>();
+
+        try {
+
+            ResultSet resultSet = getDataForListOfProfessors.executeQuery();
+            while (resultSet.next()) {
+                Professor professor = getProfessorFromResultSet(resultSet);
+                list.add(professor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public void addStudent (Student student) {
