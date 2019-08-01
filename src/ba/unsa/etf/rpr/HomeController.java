@@ -33,6 +33,9 @@ public class HomeController implements Initializable {
     private Button listButton;
 
     @FXML
+    private Button listProfBtn;
+
+    @FXML
     private Button createProfessor;
 
     @FXML
@@ -123,6 +126,23 @@ public class HomeController implements Initializable {
         createSubjectCotroller = loader.getController();
         createSubjectCotroller.set();
         myStage.setTitle("Create subject");
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
+    }
+
+    @FXML
+    public void listOfProfessors (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/listOfProfessors.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        myStage.setTitle("List of professors");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
         myStage.setResizable(false);

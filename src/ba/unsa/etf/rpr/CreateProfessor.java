@@ -44,6 +44,9 @@ public class CreateProfessor implements Initializable {
     @FXML
     private Button okBtn;
 
+    @FXML
+    private DatePicker employmentDay;
+
 
     private CollegeDAO dao = CollegeDAO.getInstance();
     private boolean firstnameValid = false;
@@ -51,6 +54,7 @@ public class CreateProfessor implements Initializable {
     private boolean dateValid = false;
     private boolean usernameValid = false;
     private boolean passwordValid = false;
+    private boolean employmentDayValid = true;
     private ArrayList<String> usernameList = new ArrayList<>();
 
     private boolean isNotEmptyValidation (String string) {
@@ -188,13 +192,54 @@ public class CreateProfessor implements Initializable {
             }
         });
 
+        //employmentDay.setValue(LocalDate.now());
+
+        employmentDay.setConverter(new StringConverter<LocalDate>()
+        {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+
+            @Override
+            public String toString(LocalDate localDate)
+            {
+                if(localDate==null)
+                    return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString)
+            {
+                if(dateString==null || dateString.trim().isEmpty())
+                {
+                    return null;
+                }
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
+
+        employmentDay.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                if (!newValue.isAfter(LocalDate.now())) {
+                    employmentDay.getStyleClass().removeAll("notValid");
+                    employmentDay.getStyleClass().add("valid");
+                    employmentDayValid = false;
+                } else {
+                    employmentDay.getStyleClass().removeAll("valid");
+                    employmentDay.getStyleClass().add("notValid");
+                    employmentDayValid = true;
+                }
+            }
+        });
+
+
     }
 
     @FXML
     public void create (ActionEvent actionEvent) {
         if (isUsernameValid(usernameField.getText())){
-            if(firstnameValid && lastnameValid && dateValid && passwordValid){
-                Professor professor = new Professor(Integer.valueOf(idField.getText()), nameField.getText(), lastnameField.getText(), dateField.getValue(), usernameField.getText(), passwordField.getText());
+            if(firstnameValid && lastnameValid && dateValid && passwordValid && employmentDayValid){
+                Professor professor = new Professor(Integer.valueOf(idField.getText()), nameField.getText(), lastnameField.getText(), dateField.getValue(), usernameField.getText(), passwordField.getText(), employmentDay.getValue());
                 dao.addProfessor(professor);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="anchorpane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.HomeController">
     <stylesheets>
         <URL value="@/css/registration.css" />
     </stylesheets>
@@ -27,6 +27,7 @@
             </Button>
             <Button fx:id="createProfessor" layoutX="269.0" layoutY="105.0" mnemonicParsing="false" onAction="#createProf" text="Create professor" />
             <Button fx:id="createSubject" layoutX="269.0" layoutY="27.0" mnemonicParsing="false" onAction="#createSubj" prefHeight="26.0" prefWidth="127.0" text="Create subject" />
+            <Button fx:id="listProfBtn" layoutX="96.0" layoutY="27.0" mnemonicParsing="false" onAction="#listOfProfessors" prefHeight="26.0" prefWidth="137.0" text="List of professors" />
          </children>
       </Pane>
       <Label layoutX="254.0" layoutY="9.0" prefHeight="103.0" prefWidth="346.0" text="Student Information System">

@@ -46,7 +46,7 @@ public class CollegeDAO {
             getStudentsQuery = conn.prepareStatement("SELECT * FROM student WHERE study_level = ? AND study_year = ?");
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
-            addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?)");
+            addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?,?)");
             addSubjectQuery = conn.prepareStatement("INSERT INTO subject VALUES(?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
             getStudentsWithSubjectId = conn.prepareStatement("SELECT student FROM grade WHERE subject = ?");
@@ -230,6 +230,7 @@ public class CollegeDAO {
                 addProfessorQuery.setString(4, formatter.format(professor.getBirthday()));
                 addProfessorQuery.setString(5, professor.getUsername());
                 addProfessorQuery.setString(6, professor.getPassword());
+                addProfessorQuery.setString(7, formatter.format(professor.getEmploymentDay()));
 
                 addProfessorQuery.executeUpdate();
 

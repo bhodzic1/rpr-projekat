@@ -13,14 +13,16 @@ public class Professor {
     private LocalDate birthday;
     private SimpleStringProperty username = new SimpleStringProperty();
     private SimpleStringProperty password = new SimpleStringProperty();
+    private LocalDate employmentDay;
 
-    public Professor(int id, String name, String lastname, LocalDate birthday, String username, String password) {
+    public Professor(int id, String name, String lastname, LocalDate birthday, String username, String password, LocalDate employmentDay) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.lastname = new SimpleStringProperty(lastname);
         this.birthday = birthday;
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
+        this.employmentDay = employmentDay;
     }
 
 
@@ -100,5 +102,13 @@ public class Professor {
     @Override
     public String toString () {
         return name + " " + lastname;
+    }
+
+    public LocalDate getEmploymentDay() {
+        return employmentDay;
+    }
+
+    public void setEmploymentDay(LocalDate employmentDay) {
+        this.employmentDay = employmentDay;
     }
 }
