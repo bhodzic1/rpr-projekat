@@ -17,8 +17,9 @@ public class Student {
     private SimpleIntegerProperty studyYear = new SimpleIntegerProperty(1);
     private SimpleStringProperty address = new SimpleStringProperty("");
     private SimpleStringProperty email = new SimpleStringProperty("");
+    private LocalDate enrolmentDate;
 
-    public Student(String name, String lastname, int indexNumber, LocalDate birthday, String identificationNumber, int studyLevel, int year, String address, String email) {
+    public Student(String name, String lastname, int indexNumber, LocalDate birthday, String identificationNumber, int studyLevel, int year, String address, String email, LocalDate enrolmentDate) {
         this.name = new SimpleStringProperty(name);
         this.lastname = new SimpleStringProperty(lastname);
         this.indexNumber = new SimpleIntegerProperty(indexNumber);
@@ -28,6 +29,7 @@ public class Student {
         this.studyYear = new SimpleIntegerProperty(Integer.valueOf(year));
         this.address = new SimpleStringProperty(address);
         this.email = new SimpleStringProperty(email);
+        this.enrolmentDate = enrolmentDate;
     }
 
     public Student () {}
@@ -141,5 +143,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public LocalDate getEnrolmentDate() {
+        return enrolmentDate;
+    }
+
+    public void setEnrolmentDate(LocalDate enrolmentDate) {
+        this.enrolmentDate = enrolmentDate;
     }
 }

@@ -1,98 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<?import java.lang.Integer?>
-<AnchorPane prefHeight="437.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.RegistrationForm">
-    <stylesheets>
-        <URL value="@/css/registration.css" />
-    </stylesheets>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-       <TextField fx:id="nameField" layoutX="25.0" layoutY="51.0" promptText="First name" />
-      <Label layoutX="25.0" layoutY="24.0" text="First name">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-
-       <TextField fx:id="lastnameField" layoutX="25.0" layoutY="132.0" promptText="Last name" />
-      <Label layoutX="25.0" layoutY="97.0" text="Last name">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-       <Label layoutX="25.0" layoutY="183.0" text="Date of birth">
-           <font>
-               <Font name="Calibri Bold" size="14.0" />
-           </font>
-       </Label>
-       <DatePicker fx:id="dateField" layoutX="25.0" layoutY="209.0" />
-       <Label layoutX="25.0" layoutY="258.0" text="Email">
-           <font>
-               <Font name="Calibri Bold" size="14.0" />
-           </font>
-       </Label>
-       <TextField fx:id="emailField" layoutX="25.0" layoutY="288.0" promptText="Email" />
-      <Label layoutX="300.0" layoutY="24.0" text="Sudent ID">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-       <ChoiceBox fx:id="studyYear" layoutX="25.0" layoutY="371.0" prefWidth="150.0" value="1" >
-           <items>
-               <FXCollections fx:factory="observableArrayList">
-                   <String fx:value="1" />
-                   <String fx:value="2" />
-                   <String fx:value="3" />
-               </FXCollections>
-           </items>
-       </ChoiceBox>
-      <TextField fx:id="idField" editable="false" layoutX="300.0" layoutY="51.0" promptText="ID" />
-      <Label layoutX="300.0" layoutY="97.0" text="Identification number">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="idNumberField" layoutX="300.0" layoutY="132.0" promptText="Identification number" />
-      <Label layoutX="300.0" layoutY="183.0" text="Address">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="addressField" layoutX="300.0" layoutY="209.0" promptText="Address" />
-      <Label layoutX="300.0" layoutY="258.0" text="Study level">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <ChoiceBox fx:id="studyLevelBox" layoutX="299.0" layoutY="288.0" prefWidth="150.0" value="Bachelor">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Bachelor" />
-                  <String fx:value="Master" />
-              </FXCollections>
-          </items>
-      </ChoiceBox>
-
-       <Button fx:id="addButton" layoutX="382.0" layoutY="370.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="27.0" prefWidth="66.0" text="Add">
-           <font>
-               <Font name="Calibri Bold" size="14.0" />
-           </font>
-       </Button>
-
-      <Label layoutX="27.0" layoutY="335.0" text="Year of studying">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
+      <Label text="Name: " />
+      <TextField fx:id="nameField" GridPane.columnIndex="1" />
+      <Label text="Lastname: " GridPane.rowIndex="1" />
+      <TextField fx:id="lastnameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Student ID: " GridPane.rowIndex="2" />
+      <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Birthday: " GridPane.rowIndex="3" />
+      <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="Identification number: " GridPane.rowIndex="4" />
+      <TextField fx:id="idNumberField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label text="Study level: " GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="studyLevelBox" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label text="Study year: " GridPane.rowIndex="6" />
+      <ChoiceBox fx:id="studyYear" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label text="Address: " GridPane.rowIndex="7" />
+      <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label text="E-mail: " GridPane.rowIndex="8" />
+      <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Label text="Enrolment date: " GridPane.rowIndex="9" />
+      <DatePicker fx:id="enrolmentDate" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="10" />
    </children>
-</AnchorPane>
+</GridPane>

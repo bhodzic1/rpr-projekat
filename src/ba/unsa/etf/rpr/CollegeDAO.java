@@ -45,7 +45,7 @@ public class CollegeDAO {
         try {
             getStudentsQuery = conn.prepareStatement("SELECT * FROM student WHERE study_level = ? AND study_year = ?");
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
-            addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?)");
+            addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?,?)");
             addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?,?)");
             addSubjectQuery = conn.prepareStatement("INSERT INTO subject VALUES(?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
@@ -133,7 +133,7 @@ public class CollegeDAO {
     }
 
     private Student getStudentFromResultSet (ResultSet rs) throws SQLException {
-        Student student = new Student(rs.getString(1), rs.getString(2), rs.getInt(3), LocalDate.parse(rs.getString(4), formatter), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9));
+        Student student = new Student(rs.getString(1), rs.getString(2), rs.getInt(3), LocalDate.parse(rs.getString(4), formatter), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), LocalDate.parse(rs.getString(10), formatter));
         return student;
     }
 

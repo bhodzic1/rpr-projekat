@@ -40,6 +40,9 @@ public class RegistrationForm implements Initializable {
     private DatePicker dateField;
 
     @FXML
+    private DatePicker enrolmentDate;
+
+    @FXML
     private Button addButton;
 
     @FXML
