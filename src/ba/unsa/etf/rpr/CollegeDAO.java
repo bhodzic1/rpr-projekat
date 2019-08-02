@@ -17,7 +17,7 @@ public class CollegeDAO {
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
-            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors;
+            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -62,6 +62,7 @@ public class CollegeDAO {
             getIdProfessorFromNameAndLastname = conn.prepareStatement("SELECT id FROM professor WHERE name || ' ' || lastname = ?");
             getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
             getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
+            deleteProfessorQuery = conn.prepareStatement("DELETE FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -448,6 +449,18 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return id;
+    }
+
+    public void deleteProfessor (String name, String lastname, LocalDate birthday, LocalDate employmentDay) {
+        try {
+            deleteProfessorQuery.setString(1, name);
+            deleteProfessorQuery.setString(2, lastname);
+            deleteProfessorQuery.setString(3, formatter.format(birthday));
+            deleteProfessorQuery.setString(4, formatter.format(employmentDay));
+            deleteProfessorQuery.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
