@@ -5,16 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import java.net.URL?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfProfessors">
+    <stylesheets>
+        <URL value="@/css/registration.css" />
+    </stylesheets>
    <children>
-      <TableView fx:id="table" prefHeight="367.0" prefWidth="600.0">
+      <TableView fx:id="table" prefHeight="356.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
-          <TableColumn fx:id="lastnameColumn" prefWidth="150.0" text="Lastname" />
-            <TableColumn fx:id="birthdayColumn" prefWidth="150.0" text="Birthday" />
-            <TableColumn fx:id="employmentColumn" prefWidth="150.0" text="Employment day" />
+          <TableColumn fx:id="nameColumn" prefWidth="149.0" text="Name" />
+          <TableColumn fx:id="lastnameColumn" prefWidth="149.0" text="Lastname" />
+            <TableColumn fx:id="birthdayColumn" prefWidth="149.0" text="Birthday" />
+            <TableColumn fx:id="employmentColumn" prefWidth="149.0" text="Employment day" />
         </columns>
       </TableView>
-      <Button fx:id="deleteBtn" onAction="#deleteProfessor" layoutX="532.0" layoutY="360.0" mnemonicParsing="false" text="Delete" />
+      <Button styleClass="addBtn" fx:id="deleteBtn" layoutX="525.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteProfessor" prefHeight="33.0" prefWidth="70.0" text="Delete" />
    </children>
 </AnchorPane>

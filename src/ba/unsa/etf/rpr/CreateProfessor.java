@@ -54,7 +54,7 @@ public class CreateProfessor implements Initializable {
     private boolean dateValid = false;
     private boolean usernameValid = false;
     private boolean passwordValid = false;
-    private boolean employmentDayValid = true;
+    private boolean employmentDayValid = false;
     private ArrayList<String> usernameList = new ArrayList<>();
 
     private boolean isNotEmptyValidation (String string) {
@@ -223,11 +223,11 @@ public class CreateProfessor implements Initializable {
                 if (!newValue.isAfter(LocalDate.now())) {
                     employmentDay.getStyleClass().removeAll("notValid");
                     employmentDay.getStyleClass().add("valid");
-                    employmentDayValid = false;
+                    employmentDayValid = true;
                 } else {
                     employmentDay.getStyleClass().removeAll("valid");
                     employmentDay.getStyleClass().add("notValid");
-                    employmentDayValid = true;
+                    employmentDayValid = false;
                 }
             }
         });
