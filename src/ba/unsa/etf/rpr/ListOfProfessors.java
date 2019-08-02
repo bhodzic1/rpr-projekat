@@ -71,8 +71,6 @@ public class ListOfProfessors implements Initializable {
                 table.setItems(FXCollections.observableArrayList(dao.getAllProfessors()));
             }
 
-
-
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Deleting professor.");
