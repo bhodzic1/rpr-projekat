@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -131,6 +132,9 @@ public class RegistrationForm implements Initializable {
         return true;
     }
 
+    public void set () {
+
+    }
 
 
     @Override
@@ -314,7 +318,7 @@ public class RegistrationForm implements Initializable {
     @FXML
     public void addStudent (ActionEvent actionEvent) {
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
-            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText());
+            Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText(), enrolmentDate.getValue());
             //model.addStudent(student, Integer.valueOf(studyYear.getValue()));
             dao.addStudent(student);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

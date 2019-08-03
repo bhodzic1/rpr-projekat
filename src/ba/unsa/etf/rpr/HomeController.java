@@ -75,6 +75,7 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
         formController = loader.getController();
+
         myStage.setTitle("Student registration");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         myStage.setResizable(false);

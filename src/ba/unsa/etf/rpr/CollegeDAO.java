@@ -230,6 +230,7 @@ public class CollegeDAO {
             addStudentQuery.setInt(7, student.getStudyYear());
             addStudentQuery.setString(8, student.getAddress());
             addStudentQuery.setString(9, student.getEmail());
+            addStudentQuery.setString(10, formatter.format(student.getEnrolmentDate()));
             addStudentQuery.executeUpdate();
 
 

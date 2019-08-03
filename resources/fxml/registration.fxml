@@ -9,7 +9,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,9 +41,24 @@
       <Label text="Identification number: " GridPane.rowIndex="4" />
       <TextField fx:id="idNumberField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label text="Study level: " GridPane.rowIndex="5" />
-      <ChoiceBox fx:id="studyLevelBox" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="studyLevelBox" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Bachelor" />
+                  <String fx:value="Master" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
       <Label text="Study year: " GridPane.rowIndex="6" />
-      <ChoiceBox fx:id="studyYear" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <ChoiceBox fx:id="studyYear" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" >
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="1" />
+                  <String fx:value="2" />
+                  <String fx:value="3" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
       <Label text="Address: " GridPane.rowIndex="7" />
       <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Label text="E-mail: " GridPane.rowIndex="8" />
