@@ -58,34 +58,21 @@ public class RegistrationForm implements Initializable {
     @FXML
     private ChoiceBox<String> studyYear;
 
-    private boolean firstnameValid;
-    private boolean lastnameValid;
-    private boolean idValid;
-    private boolean idNumberValid;
-    private boolean dateValid;
-    private boolean addressValid;
-    private boolean emailValid;
-    private boolean studyLevelValid = true;
-    private boolean studyYearValid = true;
+    private boolean firstnameValid = false;
+    private boolean lastnameValid = false;
+    private boolean idValid = false;
+    private boolean idNumberValid = false;
+    private boolean dateValid = false;
+    private boolean addressValid = false;
+    private boolean emailValid = false;
+    private boolean studyLevelValid = false;
+    private boolean studyYearValid = false;
     private boolean enrolmentDateValid = false;
     private int studyLevel = 1;
 
 
     private boolean isNotEmptyValidation (String string) {
         if (string.equals(""))
-            return false;
-        return true;
-    }
-
-    private boolean isIdValid (String string) {
-        if (string.length() == 0) {
-            return false;
-        }
-        for (int i = 0; i < string.length(); i++) {
-            if (!isDigit(string.charAt(i)))
-                return false;
-        }
-        if (string.length() > 5)
             return false;
         return true;
     }
@@ -140,13 +127,6 @@ public class RegistrationForm implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        firstnameValid = false;
-        lastnameValid = false;
-        idValid = true;
-        idNumberValid = false;
-        dateValid = false;
-        addressValid = false;
-        emailValid = false;
 
         idField.setText(String.valueOf(dao.getMaxId()));
         addButton.getStyleClass().add("addBtn");
@@ -180,21 +160,6 @@ public class RegistrationForm implements Initializable {
                 }
             }
         });
-
-        /*idField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (isIdValid(newValue)) {
-                    idField.getStyleClass().removeAll("notValid");
-                    idField.getStyleClass().add("valid");
-                    idValid = true;
-                } else {
-                    idField.getStyleClass().removeAll("valid");
-                    idField.getStyleClass().add("notValid");
-                    idValid = false;
-                }
-            }
-        });*/
 
         dateField.setConverter(new StringConverter<LocalDate>()
         {
@@ -357,9 +322,8 @@ public class RegistrationForm implements Initializable {
 
     @FXML
     public void addStudent (ActionEvent actionEvent) {
-        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid) {
+        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid && enrolmentDateValid) {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText(), enrolmentDate.getValue());
-            //model.addStudent(student, Integer.valueOf(studyYear.getValue()));
             dao.addStudent(student);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding a student");
