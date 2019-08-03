@@ -67,6 +67,7 @@ public class RegistrationForm implements Initializable {
     private boolean emailValid;
     private boolean studyLevelValid = true;
     private boolean studyYearValid = true;
+    private boolean enrolmentDateValid = false;
     private int studyLevel = 1;
 
 
@@ -313,6 +314,45 @@ public class RegistrationForm implements Initializable {
                 }
             }
         });
+
+        enrolmentDate.setConverter(new StringConverter<LocalDate>()
+        {
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd. MM. yyyy");
+
+            @Override
+            public String toString(LocalDate localDate)
+            {
+                if(localDate==null)
+                    return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString)
+            {
+                if(dateString==null || dateString.trim().isEmpty())
+                {
+                    return null;
+                }
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
+
+        enrolmentDate.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                if (!newValue.isAfter(LocalDate.now())) {
+                    enrolmentDate.getStyleClass().removeAll("notValid");
+                    enrolmentDate.getStyleClass().add("valid");
+                    enrolmentDateValid = true;
+                } else {
+                    enrolmentDate.getStyleClass().removeAll("valid");
+                    enrolmentDate.getStyleClass().add("notValid");
+                    enrolmentDateValid = false;
+                }
+            }
+        });
+
     }
 
     @FXML
