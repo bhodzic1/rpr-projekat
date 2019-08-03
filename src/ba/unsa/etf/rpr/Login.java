@@ -3,13 +3,12 @@ package ba.unsa.etf.rpr;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
 
 import java.io.IOException;
 
@@ -17,12 +16,16 @@ import java.io.IOException;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class Login {
-    HomeController controller;
+
+    private HomeController controller;
+    private CollegeDAO dao = CollegeDAO.getInstance();
 
     @FXML
     private TextField username;
+
     @FXML
     private PasswordField password;
+
     @FXML
     private Button ok;
 
