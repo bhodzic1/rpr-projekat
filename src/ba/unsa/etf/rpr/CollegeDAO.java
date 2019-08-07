@@ -17,7 +17,8 @@ public class CollegeDAO {
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
-            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery;
+            getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
+            getDataFromActive, getDataFromLogin;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -63,6 +64,10 @@ public class CollegeDAO {
             getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
             getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
             deleteProfessorQuery = conn.prepareStatement("DELETE FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
+            addActiveUser = conn.prepareStatement("INSERT  INTO active VALUES(?,?)");
+            getDataFromActive = conn.prepareStatement("SELECT username FROM active");
+            getDataFromLogin = conn.prepareStatement("SELECT username, password FROM login WHERE username = ? AND password = ?");
+
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -286,6 +291,16 @@ public class CollegeDAO {
         }
     }
 
+    public void addActiveUser (String username, String password) {
+        try {
+            addActiveUser.setString(1, username);
+            addActiveUser.setString(2, password);
+            addActiveUser.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getMaxId () {
         int id = 1;
         try {
@@ -462,6 +477,21 @@ public class CollegeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkLogin (String username, String password) {
+        boolean check = false;
+        try {
+            getDataFromLogin.setString(1, username);
+            getDataFromLogin.setString(2, password);
+            ResultSet resultSet = getDataFromLogin.executeQuery();
+            if (resultSet.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return check;
     }
 
 }
