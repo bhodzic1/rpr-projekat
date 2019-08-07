@@ -55,7 +55,6 @@ public class Login implements Initializable{
 
     @FXML
     public void clickOk(ActionEvent actionEvent) {
-        System.out.println(username.getText());
         if (dao.checkLogin(username.getText(), password.getText())) {
             Stage myStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
@@ -73,9 +72,13 @@ public class Login implements Initializable{
             myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             myStage.setResizable(false);
             myStage.show();
+
+            myStage.setOnHiding( event -> {
+                dao.deleteAllFromActive();
+            } );
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Logging");
+            alert.setTitle("Login failed");
             alert.setHeaderText("Login failed.");
             alert.setContentText("Username or password are not correct.");
             alert.show();

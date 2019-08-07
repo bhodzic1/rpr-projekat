@@ -15,19 +15,19 @@
    <children>
       <Pane layoutY="165.0" prefHeight="235.0" prefWidth="600.0">
          <children>
-            <Button fx:id="registryButton" layoutX="426.0" layoutY="96.0" mnemonicParsing="false" onAction="#registration" prefHeight="79.0" prefWidth="137.0" text="Student registration">
+            <Button fx:id="registryButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#registration" prefHeight="45.0" prefWidth="167.0" text="Student registration">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="listButton" layoutX="425.0" mnemonicParsing="false" onAction="#filter" prefHeight="79.0" prefWidth="138.0" text="List of students">
+            <Button fx:id="createProfessor" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" onAction="#createProf" prefHeight="45.0" prefWidth="167.0" text="Create professor" />
+            <Button fx:id="createSubject" layoutX="14.0" layoutY="149.0" mnemonicParsing="false" onAction="#createSubj" prefHeight="45.0" prefWidth="167.0" text="Create subject" />
+            <Button fx:id="listButton" layoutX="254.0" layoutY="14.0" mnemonicParsing="false" onAction="#filter" prefHeight="45.0" prefWidth="167.0" text="List of students">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="createProfessor" layoutX="269.0" layoutY="105.0" mnemonicParsing="false" onAction="#createProf" text="Create professor" />
-            <Button fx:id="createSubject" layoutX="269.0" layoutY="27.0" mnemonicParsing="false" onAction="#createSubj" prefHeight="26.0" prefWidth="127.0" text="Create subject" />
-            <Button fx:id="listProfBtn" layoutX="96.0" layoutY="27.0" mnemonicParsing="false" onAction="#listOfProfessors" prefHeight="26.0" prefWidth="137.0" text="List of professors" />
+            <Button fx:id="listProfBtn" layoutX="254.0" layoutY="83.0" mnemonicParsing="false" onAction="#listOfProfessors" prefHeight="45.0" prefWidth="167.0" text="List of professors" />
          </children>
       </Pane>
       <Label layoutX="254.0" layoutY="9.0" prefHeight="103.0" prefWidth="346.0" text="Student Information System">

@@ -18,7 +18,7 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -67,6 +67,7 @@ public class CollegeDAO {
             addActiveUser = conn.prepareStatement("INSERT  INTO active VALUES(?,?)");
             getDataFromActive = conn.prepareStatement("SELECT username FROM active");
             getDataFromLogin = conn.prepareStatement("SELECT username, password FROM login WHERE username = ? AND password = ?");
+            deleteAllFromActive = conn.prepareStatement("DELETE FROM active");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -492,6 +493,14 @@ public class CollegeDAO {
         }
 
         return check;
+    }
+
+    public void deleteAllFromActive () {
+        try {
+            deleteAllFromActive.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
