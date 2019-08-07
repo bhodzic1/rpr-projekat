@@ -18,7 +18,7 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin, deleteAllFromActive;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -68,6 +68,7 @@ public class CollegeDAO {
             getDataFromActive = conn.prepareStatement("SELECT username FROM active");
             getDataFromLogin = conn.prepareStatement("SELECT username, password FROM login WHERE username = ? AND password = ?");
             deleteAllFromActive = conn.prepareStatement("DELETE FROM active");
+            setLabelForActiveUser = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor WHERE username = ?");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -501,6 +502,18 @@ public class CollegeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getActiveUser (String username) {
+        String result = null;
+        try {
+            setLabelForActiveUser.setString(1, username);
+            ResultSet resultSet = setLabelForActiveUser.executeQuery();
+            result = resultSet.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

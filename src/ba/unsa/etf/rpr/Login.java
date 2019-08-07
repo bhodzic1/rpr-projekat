@@ -64,6 +64,7 @@ public class Login implements Initializable{
                 e.printStackTrace();
             }
             controller = loader.getController();
+            controller.set(username.getText());
             dao.addActiveUser(username.getText(), password.getText());
 
             ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();

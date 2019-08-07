@@ -32,3 +32,7 @@
 #tbDelete {
     -fx-graphic: url("/img/deleteIcon.png");
 }
+
+.labelActive {
+       -fx-background-color: #1c0aa6;
+}
