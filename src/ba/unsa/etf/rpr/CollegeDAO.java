@@ -18,7 +18,7 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -71,6 +71,7 @@ public class CollegeDAO {
             deleteAllFromActive = conn.prepareStatement("DELETE FROM active");
             setLabelForActiveUser = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor WHERE username = ?");
             updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
+            updateProfessor = conn.prepareStatement("UPDATE professor SET username = ?, password = ? WHERE username = ?");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -534,7 +535,21 @@ public class CollegeDAO {
     }
 
     public void updateLogin (String username, String password) {
+        try {
+            updateLogin.setString(1, username);
+            updateLogin.setString(2, password);
+            updateLogin.setString(3, username);
 
+            updateLogin.executeUpdate();
+
+            /*updateProfessor.setString(1, username);
+            updateProfessor.setString(2, password);
+            updateProfessor.setString(3, username);
+
+            updateProfessor.executeUpdate();*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

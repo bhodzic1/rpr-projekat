@@ -192,7 +192,7 @@ public class HomeController implements Initializable {
         }
 
         editUserData = loader.getController();
-        //listOfProfessors.set();
+        editUserData.set(dao.getUsernameFromActive());
         myStage.setTitle("Edit data");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
