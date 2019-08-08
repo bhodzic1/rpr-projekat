@@ -18,7 +18,7 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -48,6 +48,7 @@ public class CollegeDAO {
             setStudentIdQuery = conn.prepareStatement("SELECT MAX(index_number)+1 FROM student");
             addStudentQuery = conn.prepareStatement("INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?,?)");
             addProfessorQuery = conn.prepareStatement("INSERT INTO professor VALUES(?,?,?,?,?,?,?)");
+            addUserIntoLogin = conn.prepareStatement("INSERT INTO login VALUES(?,?)");
             addSubjectQuery = conn.prepareStatement("INSERT INTO subject VALUES(?,?,?,?)");
             getSubjectsQuery = conn.prepareStatement("SELECT name FROM subject WHERE semester = ?");
             getStudentsWithSubjectId = conn.prepareStatement("SELECT student FROM grade WHERE subject = ?");
@@ -265,6 +266,10 @@ public class CollegeDAO {
 
                 addProfessorQuery.executeUpdate();
 
+                addUserIntoLogin.setString(1, professor.getUsername());
+                addUserIntoLogin.setString(2, professor.getPassword());
+
+                addUserIntoLogin.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
