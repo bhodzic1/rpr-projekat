@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -103,37 +104,53 @@ public class HomeController implements Initializable {
 
     @FXML
     public void createProf (ActionEvent actionEvent) {
-        Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createProfessor.fxml"));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        createProfessorController = loader.getController();
-        myStage.setTitle("Create professor");
-        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        if (dao.getUsernameFromActive().equals("admin")) {
+            Stage myStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createProfessor.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            createProfessorController = loader.getController();
+            myStage.setTitle("Create professor");
+            myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
-        myStage.setResizable(false);
-        myStage.show();
+            myStage.setResizable(false);
+            myStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not possible!");
+            alert.setHeaderText("You are not admin!");
+            alert.setContentText("You need to be logged as admin!");
+            alert.show();
+        }
     }
 
     @FXML
     public void createSubj (ActionEvent actionEvent) {
-        Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createSubject.fxml"));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        createSubjectCotroller = loader.getController();
-        createSubjectCotroller.set();
-        myStage.setTitle("Create subject");
-        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        if (dao.getUsernameFromActive().equals("admin")) {
+            Stage myStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/createSubject.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            createSubjectCotroller = loader.getController();
+            createSubjectCotroller.set();
+            myStage.setTitle("Create subject");
+            myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
-        myStage.setResizable(false);
-        myStage.show();
+            myStage.setResizable(false);
+            myStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not possible!");
+            alert.setHeaderText("You are not admin!");
+            alert.setContentText("You need to be logged as admin!");
+            alert.show();
+        }
     }
 
     @FXML

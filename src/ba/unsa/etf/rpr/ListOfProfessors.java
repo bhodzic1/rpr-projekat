@@ -57,25 +57,33 @@ public class ListOfProfessors implements Initializable {
 
     @FXML
     public void deleteProfessor (ActionEvent actionEvent) {
-        if (table.getSelectionModel().getSelectedItem() != null) {
-            Professor professor = table.getSelectionModel().getSelectedItem();
+        if (dao.getUsernameFromActive().equals("admin")) {
+            if (table.getSelectionModel().getSelectedItem() != null) {
+                Professor professor = table.getSelectionModel().getSelectedItem();
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete confirmation");
-            alert.setHeaderText("Delete professor " + professor.getName() + " " + professor.getLastname());
-            alert.setContentText("Are you sure you want to delete " + professor.getName() + " " + professor.getLastname() + "?");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete confirmation");
+                alert.setHeaderText("Delete professor " + professor.getName() + " " + professor.getLastname());
+                alert.setContentText("Are you sure you want to delete " + professor.getName() + " " + professor.getLastname() + "?");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                dao.deleteProfessor(professor.getName(), professor.getLastname(), professor.getBirthday(), professor.getEmploymentDay());
-                table.setItems(FXCollections.observableArrayList(dao.getAllProfessors()));
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    dao.deleteProfessor(professor.getName(), professor.getLastname(), professor.getBirthday(), professor.getEmploymentDay());
+                    table.setItems(FXCollections.observableArrayList(dao.getAllProfessors()));
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Deleting professor.");
+                alert.setHeaderText("Professor is not selected.");
+                alert.setContentText("You need to select professor.");
+                alert.show();
             }
-
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Deleting professor.");
-            alert.setHeaderText("Professor is not selected.");
-            alert.setContentText("You need to select professor.");
+            alert.setTitle("Not possible!");
+            alert.setHeaderText("You are not admin!");
+            alert.setContentText("You need to be logged as admin!");
             alert.show();
         }
 

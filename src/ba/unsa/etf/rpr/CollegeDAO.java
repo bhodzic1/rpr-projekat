@@ -516,4 +516,15 @@ public class CollegeDAO {
         return result;
     }
 
+    public String getUsernameFromActive () {
+        String string = null;
+        try {
+            ResultSet resultSet =  getDataFromActive.executeQuery();
+            string = resultSet.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
 }
