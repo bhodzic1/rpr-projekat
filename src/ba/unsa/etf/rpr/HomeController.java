@@ -70,19 +70,27 @@ public class HomeController implements Initializable {
 
     @FXML
     public void registration (ActionEvent actionEvent) {
-        Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        formController = loader.getController();
+        if (dao.getUsernameFromActive().equals("admin")) {
+            Stage myStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            formController = loader.getController();
 
-        myStage.setTitle("Student registration");
-        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        myStage.setResizable(false);
-        myStage.show();
+            myStage.setTitle("Student registration");
+            myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            myStage.setResizable(false);
+            myStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not possible!");
+            alert.setHeaderText("You are not admin!");
+            alert.setContentText("You need to be logged as admin!");
+            alert.show();
+        }
     }
 
     @FXML
