@@ -181,7 +181,11 @@ public class HomeController implements Initializable {
     }
 
     public void set (String username) {
-        active.setText(dao.getActiveUser(username));
+        if (!username.equals("admin")) {
+            active.setText(dao.getActiveUser(username));
+        } else {
+            active.setText("Admin");
+        }
     }
 
 
