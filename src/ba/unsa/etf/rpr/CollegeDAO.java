@@ -18,7 +18,7 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -70,6 +70,7 @@ public class CollegeDAO {
             getDataFromLogin = conn.prepareStatement("SELECT username, password FROM login WHERE username = ? AND password = ?");
             deleteAllFromActive = conn.prepareStatement("DELETE FROM active");
             setLabelForActiveUser = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor WHERE username = ?");
+            updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -530,6 +531,10 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return string;
+    }
+
+    public void updateLogin (String username, String password) {
+
     }
 
 }
