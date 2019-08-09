@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditUserData implements Initializable {
@@ -28,13 +29,22 @@ public class EditUserData implements Initializable {
 
     private boolean usernameValid = false;
     private boolean passwordValid = false;
-    private String user = null;
-    private String pass = null;
     private String temp = null;
     private CollegeDAO dao = CollegeDAO.getInstance();
+    private ArrayList<String> usernameList = new ArrayList<>();
+
+    private boolean isUsernameValid (String username) {
+        for (String s : usernameList) {
+            if (s.equals(username)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        usernameList = dao.getUsernameFromProfessor();
         username.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -68,23 +78,29 @@ public class EditUserData implements Initializable {
 
     @FXML
     public void edit (ActionEvent actionEvent) {
-        user = username.getText();
-        pass = password.getText();
-        if (usernameValid && passwordValid) {
-            dao.updateLogin(username.getText(), password.getText(), temp);
+        if (isUsernameValid(username.getText())) {
+            if (usernameValid && passwordValid) {
+                dao.updateLogin(username.getText(), password.getText(), temp);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Editing a user");
-            alert.setHeaderText("");
-            alert.setContentText("User is edited.");
-            alert.show();
-            ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Editing a user");
+                alert.setHeaderText("");
+                alert.setContentText("User is edited.");
+                alert.show();
+                ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Editing a user");
+                alert.setHeaderText("Some fields are incorrect!");
+                alert.setContentText("User is not edited.");
+                alert.show();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Editing a user");
-            alert.setHeaderText("Some fields are incorrect!");
-            alert.setContentText("User is not edited.");
+            alert.setTitle("Adding a user");
+            alert.setHeaderText("Username already exists!");
+            alert.setContentText("User is not added.");
             alert.show();
         }
     }
@@ -92,14 +108,7 @@ public class EditUserData implements Initializable {
     public void set (String string) {
         username.setText(string);
         this.temp = string;
-        //this.password.setText(password);
     }
 
-    public String getUser() {
-        return user;
-    }
 
-    public String getPass() {
-        return pass;
-    }
 }

@@ -122,29 +122,6 @@ public class CollegeDAO {
         }
     }
 
-    public void ispisi(){
-        /*try {
-            ResultSet resultSet = studentQuery.executeQuery();
-            String string = resultSet.getString(1);
-            System.out.println(string);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println(instance.subjects(1).size());
-        System.out.println(instance.students(1, 1));
-        try {
-            ResultSet resultSet = proba.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(getSubjectFromResultSet(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
-        System.out.println(getNamesProfessor());
-
-
-    }
 
     private Student getStudentFromResultSet (ResultSet rs) throws SQLException {
         Student student = new Student(rs.getString(1), rs.getString(2), rs.getInt(3), LocalDate.parse(rs.getString(4), formatter), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), LocalDate.parse(rs.getString(10), formatter));

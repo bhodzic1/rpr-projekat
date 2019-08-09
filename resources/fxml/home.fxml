@@ -15,18 +15,10 @@
    <children>
       <Pane layoutY="165.0" prefHeight="197.0" prefWidth="600.0">
          <children>
-            <Button fx:id="registryButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#registration" prefHeight="45.0" prefWidth="167.0" text="Student registration">
-               <font>
-                  <Font name="Calibri Bold" size="14.0" />
-               </font>
-            </Button>
+            <Button fx:id="registryButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#registration" prefHeight="45.0" prefWidth="167.0" text="Student registration" />
             <Button fx:id="createProfessor" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" onAction="#createProf" prefHeight="45.0" prefWidth="167.0" text="Create professor" />
             <Button fx:id="createSubject" layoutX="14.0" layoutY="138.0" mnemonicParsing="false" onAction="#createSubj" prefHeight="45.0" prefWidth="167.0" text="Create subject" />
-            <Button fx:id="listButton" layoutX="209.0" layoutY="14.0" mnemonicParsing="false" onAction="#filter" prefHeight="45.0" prefWidth="167.0" text="List of students">
-               <font>
-                  <Font name="Calibri Bold" size="14.0" />
-               </font>
-            </Button>
+            <Button fx:id="listButton" layoutX="209.0" layoutY="14.0" mnemonicParsing="false" onAction="#filter" prefHeight="45.0" prefWidth="167.0" text="List of students" />
             <Button fx:id="listProfBtn" layoutX="209.0" layoutY="76.0" mnemonicParsing="false" onAction="#listOfProfessors" prefHeight="45.0" prefWidth="167.0" text="List of professors" />
             <Button onAction="#listOfSubjects" layoutX="209.0" layoutY="138.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="List of subjects" />
             <Button layoutX="418.0" layoutY="14.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="Enter the grade" />

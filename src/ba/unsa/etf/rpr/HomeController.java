@@ -98,7 +98,7 @@ public class HomeController implements Initializable {
     @FXML
     public void filter (ActionEvent actionEvent) {
         Stage myStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfStudents.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/listOfStudents.fxml"));
         try {
           loader.load();
         } catch (IOException e) {
