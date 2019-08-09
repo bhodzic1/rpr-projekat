@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects;
+            getAllSubjects, deleteSubjectQuery;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -66,6 +66,7 @@ public class CollegeDAO {
             getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
             getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
             deleteProfessorQuery = conn.prepareStatement("DELETE FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
+            deleteSubjectQuery = conn.prepareStatement("DELETE FROM subject WHERE id = ?");
             addActiveUser = conn.prepareStatement("INSERT  INTO active VALUES(?,?)");
             getDataFromActive = conn.prepareStatement("SELECT username FROM active");
             getDataFromLogin = conn.prepareStatement("SELECT username, password FROM login WHERE username = ? AND password = ?");
@@ -74,6 +75,8 @@ public class CollegeDAO {
             updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
             updateProfessor = conn.prepareStatement("UPDATE professor SET username = ?, password = ? WHERE username = ?");
             getAllSubjects = conn.prepareStatement("SELECT * FROM subject");
+
+
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -502,6 +505,15 @@ public class CollegeDAO {
             deleteProfessorQuery.setString(3, formatter.format(birthday));
             deleteProfessorQuery.setString(4, formatter.format(employmentDay));
             deleteProfessorQuery.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteSubject (int id) {
+        try {
+            deleteSubjectQuery.setInt(1, id);
+            deleteSubjectQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

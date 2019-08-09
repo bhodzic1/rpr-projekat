@@ -59,11 +59,11 @@ public class ListOfSubjects implements Initializable {
                 alert.setHeaderText("Delete subject " + subject.getName());
                 alert.setContentText("Are you sure you want to delete " + subject.getName());
 
-                /*Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    dao.deleteProfessor(professor.getName(), professor.getLastname(), professor.getBirthday(), professor.getEmploymentDay());
-                    table.setItems(FXCollections.observableArrayList(dao.getAllProfessors()));
-                }*/
+                    dao.deleteSubject(subject.getId());
+                    table.setItems(FXCollections.observableArrayList(dao.getAllSubjects()));
+                }
 
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
