@@ -18,7 +18,8 @@ public class CollegeDAO {
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
-            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor;
+            getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
+            getAllSubjects;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -72,7 +73,7 @@ public class CollegeDAO {
             setLabelForActiveUser = conn.prepareStatement("SELECT name || ' ' || lastname FROM professor WHERE username = ?");
             updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
             updateProfessor = conn.prepareStatement("UPDATE professor SET username = ?, password = ? WHERE username = ?");
-
+            getAllSubjects = conn.prepareStatement("SELECT * FROM subject");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -221,6 +222,24 @@ public class CollegeDAO {
         }
         return list;
     }
+
+    public ArrayList<Subject> getAllSubjects () {
+        ArrayList<Subject> list = new ArrayList<>();
+
+        try {
+
+            ResultSet resultSet = getAllSubjects.executeQuery();
+            while (resultSet.next()) {
+                Subject subject = getSubjectFromResultSet(resultSet);
+                list.add(subject);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
 
     public void addStudent (Student student) {
         try {

@@ -57,6 +57,7 @@ public class HomeController implements Initializable {
     private CreateSubject createSubjectCotroller;
     private ListOfProfessors listOfProfessors;
     private EditUserData editUserData;
+    private ListOfSubjects listOfSubjects;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -181,6 +182,24 @@ public class HomeController implements Initializable {
         myStage.show();
     }
 
+    @FXML
+    public void listOfSubjects (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/listOfSubjects.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        listOfSubjects = loader.getController();
+        listOfSubjects.set();
+        myStage.setTitle("List of subjects");
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
+    }
     @FXML
     public void edit (ActionEvent actionEvent) {
         Stage myStage = new Stage();
