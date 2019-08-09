@@ -534,19 +534,19 @@ public class CollegeDAO {
         return string;
     }
 
-    public void updateLogin (String username, String password) {
+    public void updateLogin (String username, String password, String oldUsername) {
         try {
             updateLogin.setString(1, username);
             updateLogin.setString(2, password);
-            updateLogin.setString(3, username);
+            updateLogin.setString(3, oldUsername);
 
             updateLogin.executeUpdate();
 
-            /*updateProfessor.setString(1, username);
+            updateProfessor.setString(1, username);
             updateProfessor.setString(2, password);
-            updateProfessor.setString(3, username);
+            updateProfessor.setString(3, oldUsername);
 
-            updateProfessor.executeUpdate();*/
+            updateProfessor.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

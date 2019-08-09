@@ -198,6 +198,7 @@ public class HomeController implements Initializable {
 
         myStage.setResizable(false);
         myStage.show();
+
     }
 
     public void set (String username) {

@@ -28,6 +28,9 @@ public class EditUserData implements Initializable {
 
     private boolean usernameValid = false;
     private boolean passwordValid = false;
+    private String user = null;
+    private String pass = null;
+    private String temp = null;
     private CollegeDAO dao = CollegeDAO.getInstance();
 
     @Override
@@ -65,8 +68,10 @@ public class EditUserData implements Initializable {
 
     @FXML
     public void edit (ActionEvent actionEvent) {
+        user = username.getText();
+        pass = password.getText();
         if (usernameValid && passwordValid) {
-            dao.updateLogin(username.getText(), password.getText());
+            dao.updateLogin(username.getText(), password.getText(), temp);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Editing a user");
@@ -86,6 +91,15 @@ public class EditUserData implements Initializable {
 
     public void set (String string) {
         username.setText(string);
+        this.temp = string;
         //this.password.setText(password);
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPass() {
+        return pass;
     }
 }
