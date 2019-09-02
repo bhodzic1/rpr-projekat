@@ -86,7 +86,10 @@ public class ListOfStudents implements Initializable {
     private int semesterValue = 0;
     private int tempSemester = 0;
     private int tempYear = 0;
+    private int tempYearMaster = 0;
+    private int semesterValueMaster = 0;
     public ObservableList<Subject> list = FXCollections.observableArrayList();
+    public ObservableList<Subject> list2 = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,8 +100,10 @@ public class ListOfStudents implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.equals("1")) {
+                    tempYearMaster = 7;
                     tempYear = 1;
                 } else if (newValue.equals("2")) {
+                    tempYearMaster = 9;
                     tempYear = 3;
                 } else {
                     tempYear = 5;
@@ -121,6 +126,7 @@ public class ListOfStudents implements Initializable {
 
     public void generateList (ActionEvent actionEvent) {
         semesterValue = tempSemester + tempYear;
+        semesterValueMaster = tempYearMaster + tempSemester;
 
         list = FXCollections.observableArrayList(dao.subjects(semesterValue));
         listViewBachelor.getItems().setAll(list);
@@ -128,12 +134,15 @@ public class ListOfStudents implements Initializable {
         nameBachelor.setCellValueFactory(new PropertyValueFactory<>("name"));
         lastnameBachelor.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         indexBachelor.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
-        tableViewBachelor.setItems(FXCollections.observableArrayList(dao.students(1, tempYear)));
+        tableViewBachelor.setItems(FXCollections.observableArrayList(dao.students(1, Integer.parseInt(year.getValue()))));
 
+
+        list2 = FXCollections.observableArrayList(dao.subjects(semesterValueMaster));
+        listViewMaster.getItems().setAll(list2);
         nameMaster.setCellValueFactory(new PropertyValueFactory<>("name"));
         lastnameMaster.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         indexMaster.setCellValueFactory(new PropertyValueFactory<>("indexNumber"));
-        tableViewMaster.setItems(FXCollections.observableArrayList(dao.students(2, tempYear)));
+        tableViewMaster.setItems(FXCollections.observableArrayList(dao.students(2, Integer.parseInt(year.getValue()))));
 
     }
 
@@ -143,7 +152,7 @@ public class ListOfStudents implements Initializable {
             if (listViewBachelor.getSelectionModel().getSelectedItem() != null) {
                 selectedSubject = listViewBachelor.getSelectionModel().getSelectedItem();
                 Stage myStage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/subjectReport.fxml"));
                 try {
                     loader.load();
                 } catch (IOException e) {

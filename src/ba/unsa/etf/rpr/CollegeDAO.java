@@ -406,9 +406,7 @@ public class CollegeDAO {
         try {
             getNumberOfStudentsOnSubject.setInt(1, id);
             ResultSet resultSet = getNumberOfStudentsOnSubject.executeQuery();
-            while (resultSet.next()) {
-                number++;
-            }
+            number = resultSet.getInt(1);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -423,9 +421,7 @@ public class CollegeDAO {
         try {
             getNumberOfPassedStudentsOnSubject.setInt(1, id);
             ResultSet resultSet = getNumberOfPassedStudentsOnSubject.executeQuery();
-            while (resultSet.next()) {
-                number++;
-            }
+            number = resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
