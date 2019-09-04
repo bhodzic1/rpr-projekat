@@ -39,9 +39,10 @@
       <Label text="Username: " GridPane.rowIndex="4" />
       <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label text="Password: " GridPane.rowIndex="5" />
+       <Label text="Employment day: " GridPane.rowIndex="6" />
+       <DatePicker fx:id="employmentDay" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Button fx:id="okBtn" mnemonicParsing="false" onAction="#create" prefHeight="26.0" prefWidth="84.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Label text="Employment day: " GridPane.rowIndex="6" />
-      <DatePicker fx:id="employmentDay" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
    </children>
 </GridPane>
