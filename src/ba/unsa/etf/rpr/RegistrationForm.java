@@ -92,19 +92,22 @@ public class RegistrationForm implements Initializable {
         if(string.length() != 13) {
             return false;
         }
-        LocalDate date = dateField.getValue();
-        String dateField = date.toString();
-        if (!string.substring(0, 2).equals(dateField.substring(8, 10))) {
-            return false;
-        }
-        if (!string.substring(2, 4).equals(dateField.substring(5, 7))) {
-            return false;
-        }
-        if (!string.substring(4, 7).equals(dateField.substring(1, 4))) {
-            return false;
-        }
+        if (string.length() == 13) {
+            LocalDate date = dateField.getValue();
+            String dateField = date.toString();
+            if (!string.substring(0, 2).equals(dateField.substring(8, 10))) {
+                return false;
+            }
+            if (!string.substring(2, 4).equals(dateField.substring(5, 7))) {
+                return false;
+            }
+            if (!string.substring(4, 7).equals(dateField.substring(1, 4))) {
+                return false;
+            }
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
     private boolean isEmailValid (String string) {
@@ -115,6 +118,9 @@ public class RegistrationForm implements Initializable {
             return false;
         }
         if (string.charAt(0) == '@' || string.charAt(string.length() - 1) == '@') {
+            return false;
+        }
+        if (string.endsWith(".")) {
             return false;
         }
         return true;
@@ -249,10 +255,12 @@ public class RegistrationForm implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.equals("Master")) {
                     studyLevel = 2;
-                    if (Integer.valueOf(studyYear.getValue()) > 2) {
+                    if (studyYear.getValue() != null && Integer.valueOf(studyYear.getValue()) > 2) {
                         studyLevelBox.getStyleClass().removeAll("valid");
                         studyLevelBox.getStyleClass().add("notValid");
                         studyLevelValid = false;
+                    } else {
+                        studyLevelValid = true;
                     }
                 } else {
                     studyLevel = 1;
@@ -267,10 +275,12 @@ public class RegistrationForm implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.equals("3")) {
-                    if (studyLevelBox.getValue().equals("Master")) {
+                    if (studyLevelBox.getValue() != null && studyLevelBox.getValue().equals("Master")) {
                         studyYearValid = false;
                         studyYear.getStyleClass().removeAll("valid");
                         studyYear.getStyleClass().add("notValid");
+                    } else {
+                        studyYearValid = true;
                     }
                 } else {
                     studyYearValid = true;
@@ -322,7 +332,7 @@ public class RegistrationForm implements Initializable {
 
     @FXML
     public void addStudent (ActionEvent actionEvent) {
-        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idValid && idNumberValid && studyYearValid && studyLevelValid && enrolmentDateValid) {
+        if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idNumberValid && studyYearValid && studyLevelValid && enrolmentDateValid) {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText(), enrolmentDate.getValue());
             dao.addStudent(student);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
