@@ -37,12 +37,12 @@ public class GradeController implements Initializable {
     public void set (ArrayList<String> list) {
         subjects = FXCollections.observableArrayList(list);
         subjectField.setItems(subjects);
-        System.out.println(list);
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(subjects);
+
 
 
     }
