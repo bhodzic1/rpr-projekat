@@ -49,6 +49,9 @@ public class HomeController implements Initializable {
     @FXML
     private Label active;
 
+    @FXML
+    private Button enterGrade;
+
 
     private CollegeDAO dao = CollegeDAO.getInstance();
     private RegistrationForm formController;
@@ -58,6 +61,7 @@ public class HomeController implements Initializable {
     private ListOfProfessors listOfProfessors;
     private EditUserData editUserData;
     private ListOfSubjects listOfSubjects;
+    private GradeController gradeController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -218,6 +222,24 @@ public class HomeController implements Initializable {
         myStage.setResizable(false);
         myStage.show();
 
+    }
+    @FXML
+    public void enterGrade (ActionEvent actionEvent) {
+        Stage myStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/grade.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        gradeController = loader.getController();
+        //editUserData.set(dao.getUsernameFromActive());
+        myStage.setTitle("Enter grade");
+        myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
+        myStage.setResizable(false);
+        myStage.show();
     }
 
     public void set (String username) {

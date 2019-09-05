@@ -21,7 +21,7 @@
             <Button fx:id="listButton" layoutX="209.0" layoutY="14.0" mnemonicParsing="false" onAction="#filter" prefHeight="45.0" prefWidth="167.0" text="List of students" />
             <Button fx:id="listProfBtn" layoutX="209.0" layoutY="76.0" mnemonicParsing="false" onAction="#listOfProfessors" prefHeight="45.0" prefWidth="167.0" text="List of professors" />
             <Button onAction="#listOfSubjects" layoutX="209.0" layoutY="138.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="List of subjects" />
-            <Button layoutX="418.0" layoutY="14.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="Enter the grade" />
+            <Button fx:id="enterGrade" layoutX="418.0" layoutY="14.0" mnemonicParsing="false" onAction="#enterGrade" prefHeight="45.0" prefWidth="167.0" text="Enter the grade" />
             <Button fx:id="editData" onAction="#edit" layoutX="418.0" layoutY="76.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="Edit user data" />
             <Button layoutX="418.0" layoutY="138.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="167.0" text="About" />
          </children>
