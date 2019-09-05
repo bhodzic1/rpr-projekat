@@ -234,7 +234,7 @@ public class HomeController implements Initializable {
         }
 
         gradeController = loader.getController();
-        //editUserData.set(dao.getUsernameFromActive());
+        gradeController.set(dao.getSubjectsForProfessor(dao.getUsernameFromActive()));
         myStage.setTitle("Enter grade");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 

@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getUsernameAndPassword;
+            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getUsernameAndPassword, getSubjectsForProfessor;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -77,7 +77,7 @@ public class CollegeDAO {
             updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
             updateProfessor = conn.prepareStatement("UPDATE professor SET username = ?, password = ? WHERE username = ?");
             getAllSubjects = conn.prepareStatement("SELECT * FROM subject");
-
+            getSubjectsForProfessor = conn.prepareStatement("SELECT s.name FROM subject s, professor p WHERE s.professor = p.id AND p.username = ?");
 
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
@@ -383,6 +383,22 @@ public class CollegeDAO {
             e.printStackTrace();
         }
         return models;
+    }
+
+    public ArrayList<String> getSubjectsForProfessor (String username) {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            getSubjectsForProfessor.setString(1, username);
+            ResultSet resultSet = getSubjectsForProfessor.executeQuery();
+            while (resultSet.next()) {
+                String string = resultSet.getString(1);
+                list.add(string);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public ArrayList<StudentsModel> getStudentModel (int id) {
