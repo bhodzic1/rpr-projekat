@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(ApplicationExtension.class)
@@ -106,16 +107,11 @@ class Tests {
         robot.lookup("#listProfBtn").tryQuery().isPresent();
         robot.clickOn("#listProfBtn");
         TableView tableView = robot.lookup("table").queryAs(TableView.class);
-        List<Professor> list = dao.getAllProfessors();
+        String professors = String.valueOf(dao.getAllProfessors());
 
-        assertTrue(list.contains("Nikola Nikic 1980-02-13 2019-09-05"));
+        assertTrue(professors.contains("Nikola Nikic 1980-02-13 2019-09-05"));
 
-        try {
-            Thread.sleep(5000);
-            robot.press(KeyCode.DOWN);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        robot.press(KeyCode.DOWN).sleep(5000);
         robot.release(KeyCode.DOWN);
 
         robot.clickOn("#deleteBtn");
@@ -128,11 +124,11 @@ class Tests {
         robot.lookup(".dialog-pane").tryQuery().isPresent();
         DialogPane dialogPane2 = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
 
-        Button okButton2 = (Button) dialogPane.lookupButton(ButtonType.OK);
-        robot.clickOn(okButton);
+        Button okButton2 = (Button) dialogPane2.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton2);
 
-        list = dao.getAllProfessors();
-        assertTrue(!list.contains("Nikola Nikic 13.02.1980 05.09.2019"));
+        professors = String.valueOf(dao.getAllProfessors());
+        assertTrue(!professors.contains("Nikola Nikic 13.02.1980 05.09.2019"));
 
     }
 

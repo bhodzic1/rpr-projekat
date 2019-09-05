@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects, deleteSubjectQuery;
+            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getUsernameAndPassword;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -66,6 +66,8 @@ public class CollegeDAO {
             getMaxIdSubject = conn.prepareStatement("SELECT MAX(id)+1 FROM subject");
             getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
             deleteProfessorQuery = conn.prepareStatement("DELETE FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
+            deleteFromLogin = conn.prepareStatement("DELETE FROM login WHERE username = ? AND password = ?");
+            getUsernameAndPassword = conn.prepareStatement("SELECT username, password FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
             deleteSubjectQuery = conn.prepareStatement("DELETE FROM subject WHERE id = ?");
             addActiveUser = conn.prepareStatement("INSERT  INTO active VALUES(?,?)");
             getDataFromActive = conn.prepareStatement("SELECT username FROM active");
@@ -473,6 +475,16 @@ public class CollegeDAO {
 
     public void deleteProfessor (String name, String lastname, LocalDate birthday, LocalDate employmentDay) {
         try {
+            getUsernameAndPassword.setString(1, name);
+            getUsernameAndPassword.setString(2, lastname);
+            getUsernameAndPassword.setString(3, formatter.format(birthday));
+            getUsernameAndPassword.setString(4, formatter.format(employmentDay));
+            ResultSet resultSet = getUsernameAndPassword.executeQuery();
+            String username = resultSet.getString(1);
+            String password = resultSet.getString(2);
+            deleteFromLogin.setString(1, username);
+            deleteFromLogin.setString(2, password);
+            deleteFromLogin.executeUpdate();
             deleteProfessorQuery.setString(1, name);
             deleteProfessorQuery.setString(2, lastname);
             deleteProfessorQuery.setString(3, formatter.format(birthday));

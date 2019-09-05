@@ -101,7 +101,7 @@ public class Professor {
 
     @Override
     public String toString () {
-        return name + " " + lastname + " " + getBirthday() +  " " + getEmploymentDay();
+        return name.get() + " " + lastname.get() + " " + getBirthday() +  " " + getEmploymentDay();
     }
 
     public LocalDate getEmploymentDay() {
