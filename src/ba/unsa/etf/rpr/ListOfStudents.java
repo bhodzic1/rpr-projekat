@@ -180,7 +180,7 @@ public class ListOfStudents implements Initializable {
             if (listViewMaster.getSelectionModel().getSelectedItem() != null) {
                 selectedSubject = listViewMaster.getSelectionModel().getSelectedItem();
                 Stage myStage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SubjectReport.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/subjectReport.fxml"));
                 try {
                     loader.load();
                 } catch (IOException e) {
@@ -208,6 +208,33 @@ public class ListOfStudents implements Initializable {
         if (bachelorTab.isSelected()) {
             if (tableViewBachelor.getSelectionModel().getSelectedItem() != null) {
                 selectedStudent = tableViewBachelor.getSelectionModel().getSelectedItem();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
+
+
+                try {
+                    loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                studentReport = loader.getController();
+                studentReport.set(selectedStudent.getIndexNumber(), selectedStudent.getName() + " " + selectedStudent.getLastname());
+                stage.setTitle("Student report");
+                stage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Student report");
+                alert.setHeaderText("Student is not selected.");
+                alert.setContentText("You need to select a student.");
+                alert.show();
+            }
+        } else {
+            if (tableViewMaster.getSelectionModel().getSelectedItem() != null) {
+                selectedStudent = tableViewMaster.getSelectionModel().getSelectedItem();
                 Stage stage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentReport.fxml"));
 
