@@ -32,8 +32,8 @@
       <TextField fx:id="gradeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="     Subject :" GridPane.rowIndex="2" />
       <Label text="     Date : " GridPane.rowIndex="3" />
-      <Button fx:id="okBtn" mnemonicParsing="false" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ChoiceBox fx:id="subjectField" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+       <Button fx:id="okBtn" onAction="#addGrade" mnemonicParsing="false" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>
