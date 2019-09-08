@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -261,5 +262,67 @@ public class ListOfStudents implements Initializable {
             }
         }
     }
+
+    @FXML
+    public void deleteStudent (ActionEvent actionEvent) {
+        if (dao.getUsernameFromActive().equals("admin")) {
+            if (bachelorTab.isSelected()) {
+                if (tableViewBachelor.getSelectionModel().getSelectedItem() != null) {
+                    Student student = tableViewBachelor.getSelectionModel().getSelectedItem();
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete confirmation");
+                    alert.setHeaderText("Delete student " + student.getName());
+                    alert.setContentText("Are you sure you want to delete " + student.getName());
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        dao.deleteStudent(student.getIndexNumber());
+                        tableViewBachelor.setItems(FXCollections.observableArrayList(dao.students(1, Integer.parseInt(year.getValue()))));
+                    }
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Deleting student.");
+                    alert.setHeaderText("Student is not selected.");
+                    alert.setContentText("You need to select student.");
+                    alert.show();
+                }
+            } else if (masterTab.isSelected()) {
+                if (tableViewMaster.getSelectionModel().getSelectedItem() != null) {
+                    Student student = tableViewMaster.getSelectionModel().getSelectedItem();
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete confirmation");
+                    alert.setHeaderText("Delete student " + student.getName());
+                    alert.setContentText("Are you sure you want to delete " + student.getName() + "?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        dao.deleteStudent(student.getIndexNumber());
+                        tableViewMaster.setItems(FXCollections.observableArrayList(dao.students(2, Integer.parseInt(year.getValue()))));
+                    }
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Deleting student.");
+                    alert.setHeaderText("Student is not selected.");
+                    alert.setContentText("You need to select student.");
+                    alert.show();
+                }
+            }
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not possible!");
+            alert.setHeaderText("You are not admin!");
+            alert.setContentText("You need to be logged as admin!");
+            alert.show();
+        }
+
+
+
+    }
+
 
 }

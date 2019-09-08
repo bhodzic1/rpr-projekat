@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getMaxIdGrade, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery;
+            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -69,6 +69,7 @@ public class CollegeDAO {
             getDataForListOfProfessors = conn.prepareStatement("SELECT * FROM professor");
             deleteProfessorQuery = conn.prepareStatement("DELETE FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
             deleteFromLogin = conn.prepareStatement("DELETE FROM login WHERE username = ? AND password = ?");
+            deleteStudent = conn.prepareStatement("DELETE FROM student WHERE index_number = ?");
             getUsernameAndPassword = conn.prepareStatement("SELECT username, password FROM professor WHERE name = ? AND lastname = ? AND birthday = ? AND employment_date = ?");
             deleteSubjectQuery = conn.prepareStatement("DELETE FROM subject WHERE id = ?");
             addActiveUser = conn.prepareStatement("INSERT  INTO active VALUES(?,?)");
@@ -574,6 +575,15 @@ public class CollegeDAO {
         }
     }
 
+    public void deleteStudent(int indexNumber) {
+        try {
+            deleteStudent.setInt(1, indexNumber);
+            deleteStudent.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteSubject (int id) {
         try {
             deleteSubjectQuery.setInt(1, id);
@@ -646,5 +656,6 @@ public class CollegeDAO {
             e.printStackTrace();
         }
     }
+
 
 }

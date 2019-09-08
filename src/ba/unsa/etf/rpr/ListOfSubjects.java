@@ -57,7 +57,7 @@ public class ListOfSubjects implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Delete confirmation");
                 alert.setHeaderText("Delete subject " + subject.getName());
-                alert.setContentText("Are you sure you want to delete " + subject.getName());
+                alert.setContentText("Are you sure you want to delete " + subject.getName() + "?");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
