@@ -62,7 +62,7 @@ public class Subject {
 
     @Override
     public String toString () {
-        return this.name.get() + " " + this.semester.get();
+        return this.name.get();
     }
 
     public int getProfessor() {

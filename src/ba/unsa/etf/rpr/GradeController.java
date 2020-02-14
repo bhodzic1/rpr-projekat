@@ -119,23 +119,31 @@ public class GradeController implements Initializable {
 
     @FXML
     public void addGrade (ActionEvent actionEvent) {
-        if (studentValid && subjectValid && dateValid && gradeValid) {
-            int subject = dao.getSubjectIdWithName(subjectField.getValue());
-            Grade grade = new Grade(1, Integer.valueOf(gradeField.getText()), datePicker.getValue(), Integer.valueOf(studentField.getText()), subject);
-            dao.addGrade(grade);
-
+        if (!dao.doesStudentExists(Integer.parseInt(studentField.getText()))) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding a grade");
-            alert.setHeaderText("");
-            alert.setContentText("Grade is added.");
-            alert.show();
-            ((Stage)(((Button)actionEvent.getSource()).getScene().getWindow())).close();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Adding a grade");
-            alert.setHeaderText("Some fields are incorrect!");
+            alert.setHeaderText("Student does not exist!");
             alert.setContentText("Grade is not added.");
             alert.show();
+        } else {
+            if (studentValid && subjectValid && dateValid && gradeValid) {
+                int subject = dao.getSubjectIdWithName(subjectField.getValue());
+                Grade grade = new Grade(1, Integer.valueOf(gradeField.getText()), datePicker.getValue(), Integer.valueOf(studentField.getText()), subject);
+                dao.addGrade(grade);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Adding a grade");
+                alert.setHeaderText("");
+                alert.setContentText("Grade is added.");
+                alert.show();
+                ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Adding a grade");
+                alert.setHeaderText("Some fields are incorrect!");
+                alert.setContentText("Grade is not added.");
+                alert.show();
+            }
         }
     }
 }
