@@ -39,7 +39,7 @@
       <Label text="Lastname: " GridPane.rowIndex="1" />
       <TextField fx:id="lastnameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Student ID: " GridPane.rowIndex="2" />
-      <TextField fx:id="idField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="Birthday: " GridPane.rowIndex="3" />
       <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Identification number: " GridPane.rowIndex="4" />

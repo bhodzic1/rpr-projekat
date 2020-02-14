@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -86,8 +89,27 @@ public class ListOfProfessors implements Initializable {
             alert.setContentText("You need to be logged as admin!");
             alert.show();
         }
+    }
 
+    @FXML
+    public void print (ActionEvent actionEvent) {
+        File file = new File("professors.txt");
+        ArrayList<Professor> models = new ArrayList<>();
+        models = dao.getAllProfessors();
+        if (file != null) {
+            try {
+                FileWriter fileWriter = new FileWriter(file);
+                String string = "";
+                string += "Name of professor, birthday, employment day\n";
+                for (Professor k : models) {
+                    string += k.getName() + " " + k.getLastname() + ", " + k.getBirthday() + ", " + k.getEmploymentDay() + "\n";
+                }
+                fileWriter.write(string);
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-
+        }
     }
 }

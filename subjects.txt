@@ -1,0 +1,29 @@
+Name of subject, semester
+Matematika 1, 1
+Osnove racunarstva, 1
+Fizika 1, 1
+Osnove elektrotehnike, 1
+LAG, 1
+Matematika 2, 2
+MLTI, 2
+Operativni sistemi, 2
+Vjerovatnoca i statistika, 2
+Tehnike programiranja, 2
+Algoritmi i strukture podataka, 3
+Razvoj programskih rjesenja, 3
+Baze podataka, 3
+Sistemsko programiranje, 3
+Logicki dizajn, 3
+Diskretna matematika, 3
+OOAD, 4
+Automati i formalni jezici, 4
+Racunarske arhitekture, 4
+Racunarske mreze, 4
+Razvoj mobilnih aplikacija, 4
+CAD-CAM, 4
+Web tehnologije, 5
+Mobilne komunikacije, 6
+Baze podataka 2, 7
+Racunarske mreze 2, 8
+Tehnologije sigurnosti, 9
+Data mining, 10

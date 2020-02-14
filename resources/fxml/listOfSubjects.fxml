@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfSubjects">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ListOfSubjects">
     <stylesheets>
         <URL value="@/css/registration.css" />
     </stylesheets>
@@ -18,7 +18,8 @@
                 <TableColumn fx:id="semesterColumn" prefWidth="114.0" text="Semester" />
             </columns>
         </TableView>
-        <Button fx:id="deleteBtn" layoutX="325.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteProfessor" prefHeight="33.0" prefWidth="70.0" styleClass="addBtn" text="Delete" />
+        <Button fx:id="deleteBtn" layoutX="325.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteProfessor" prefHeight="33.0" prefWidth="70.0" styleClass="addBtn" text="Delete" />
+        <Button fx:id="printBtn" layoutX="239.0" layoutY="362.0" mnemonicParsing="false" onAction="#print" prefHeight="33.0" prefWidth="70.0" styleClass="printBtn" text="Print" />
     </children>
 
 </AnchorPane>

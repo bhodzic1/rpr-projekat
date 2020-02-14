@@ -22,15 +22,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @ExtendWith(ApplicationExtension.class)
 class Tests {
     Login controller;
     CollegeDAO dao = CollegeDAO.getInstance();
     @Start
-    public void start (Stage stage) throws Exception {
+    public void start (Stage stage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         try {
             loader.load();
@@ -62,6 +60,66 @@ class Tests {
         String active = robot.lookup("#active").queryAs(Label.class).getText();
         assertNotNull(active);
         assertEquals("Admin", active);
+
+    }
+
+    @Test
+    public void testCreateAndDeleteSubject (FxRobot robot) {
+        robot.lookup("#createSubject").tryQuery().isPresent();
+        robot.clickOn("#createSubject");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.lookup("#idField").tryQuery().isPresent();
+        TextField id = robot.lookup("#idField").queryAs(TextField.class);
+        assertNotNull(id);
+        robot.clickOn("#nameField");
+        robot.write("Testni predmet");
+
+        robot.clickOn("#semesterBox");
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#professorBox");
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#okBtn");
+
+        robot.lookup(".dialog-pane").tryQuery().isPresent();
+        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+
+        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton);
+
+        robot.lookup("#listOfSubjects").tryQuery().isPresent();
+        robot.clickOn("#listOfSubjects");
+        TableView tableView = robot.lookup("table").queryAs(TableView.class);
+        String subjects = String.valueOf(dao.getAllSubjects());
+
+        assertTrue(subjects.contains("Testni predmet 2"));
+
+        robot.press(KeyCode.DOWN).sleep(5000);
+        robot.release(KeyCode.DOWN);
+
+        robot.clickOn("#deleteBtn");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        robot.lookup(".dialog-pane").tryQuery().isPresent();
+        DialogPane dialogPane2 = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+
+        Button okButton2 = (Button) dialogPane2.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton2);
+
+        subjects = String.valueOf(dao.getAllSubjects());
+        assertTrue(!subjects.contains("Testni predmet 2"));
+
     }
 
     @Test
@@ -129,8 +187,8 @@ class Tests {
 
         professors = String.valueOf(dao.getAllProfessors());
         assertTrue(!professors.contains("Nikola Nikic 13.02.1980 05.09.2019"));
-
     }
+
 
 
 }

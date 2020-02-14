@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -82,6 +85,29 @@ public class ListOfSubjects implements Initializable {
 
 
 
+    }
+
+    @FXML
+    public void print (ActionEvent actionEvent) {
+        File file = new File("subjects.txt");
+        ArrayList<Subject> models = new ArrayList<>();
+        models = dao.getAllSubjects();
+
+        if (file != null) {
+            try {
+                FileWriter fileWriter = new FileWriter(file);
+                String string = "";
+                string += "Name of subject, semester\n";
+                for (Subject k : models) {
+                    string += k.getName() + ", " + k.getSemester() + "\n";
+                }
+                fileWriter.write(string);
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }

@@ -13,6 +13,13 @@
     -fx-text-fill: white;
 }
 
+.printBtn {
+    -fx-background-color: linear-gradient(#3495eb, #00eaff);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
 .btnBlue {
     -fx-background-color: #52e6eb;
 }

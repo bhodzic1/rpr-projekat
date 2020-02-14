@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getMaxIdGrade, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent;
+            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent, getPassedSubjects, studentExists;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -82,6 +82,8 @@ public class CollegeDAO {
             getAllSubjects = conn.prepareStatement("SELECT * FROM subject");
             getSubjectsForProfessor = conn.prepareStatement("SELECT s.name FROM subject s, professor p WHERE s.professor = p.id AND p.username = ?");
             getSubjectIdWithName = conn.prepareStatement("SELECT id FROM subject WHERE name = ?");
+            getPassedSubjects = conn.prepareStatement("SELECT count(id) FROM grade WHERE grade > 5 and student = ?;");
+            studentExists = conn.prepareStatement("SELECT name FROM student WHERE index_number = ?;");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -655,6 +657,34 @@ public class CollegeDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getPassedSubjects (int id) {
+        int result = 0;
+        try {
+            getPassedSubjects.setInt(1, id);
+            ResultSet resultSet = getPassedSubjects.executeQuery();
+            result = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public boolean doesStudentExists (int id) {
+        boolean exist = false;
+        try {
+            studentExists.setInt(1, id);
+            ResultSet resultSet = studentExists.executeQuery();
+            if (resultSet.next()) {
+                exist = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exist;
     }
 
 
