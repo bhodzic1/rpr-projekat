@@ -35,6 +35,9 @@ public class HomeController implements Initializable {
     private Button listButton;
 
     @FXML
+    private Button listOfSubjects;
+
+    @FXML
     private Button listProfBtn;
 
     @FXML
@@ -60,7 +63,7 @@ public class HomeController implements Initializable {
     private CreateSubject createSubjectCotroller;
     private ListOfProfessors listOfProfessors;
     private EditUserData editUserData;
-    private ListOfSubjects listOfSubjects;
+    private ListOfSubjects listOfSubjectsCtrl;
     private GradeController gradeController;
 
     @Override
@@ -196,8 +199,8 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
 
-        listOfSubjects = loader.getController();
-        listOfSubjects.set();
+        listOfSubjectsCtrl = loader.getController();
+        listOfSubjectsCtrl.set();
         myStage.setTitle("List of subjects");
         myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 

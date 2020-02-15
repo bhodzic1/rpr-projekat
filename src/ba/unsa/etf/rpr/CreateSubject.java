@@ -109,7 +109,6 @@ public class CreateSubject implements Initializable {
     public void create (ActionEvent actionEvent) {
         if (nameValid && professorValid && semesterValid) {
             Subject subject = new Subject(Integer.valueOf(idField.getText()), nameField.getText(), id,Integer.valueOf(semesterBox.getValue()));
-            System.out.println(id);
             dao.addSubject(subject);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Adding a subject");

@@ -44,13 +44,14 @@ class Tests {
     }
 
     @Test
-    public void testLogin (FxRobot robot) {
+    public void testA (FxRobot robot) {
         robot.lookup("#username").tryQuery().isPresent();
         robot.clickOn("#username");
         robot.write("admin");
         robot.clickOn("#password");
         robot.write("adminadmin");
         robot.clickOn("#ok");
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -63,67 +64,9 @@ class Tests {
 
     }
 
-    @Test
-    public void testCreateAndDeleteSubject (FxRobot robot) {
-        robot.lookup("#createSubject").tryQuery().isPresent();
-        robot.clickOn("#createSubject");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        robot.lookup("#idField").tryQuery().isPresent();
-        TextField id = robot.lookup("#idField").queryAs(TextField.class);
-        assertNotNull(id);
-        robot.clickOn("#nameField");
-        robot.write("Testni predmet");
-
-        robot.clickOn("#semesterBox");
-        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
-        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
-
-        robot.clickOn("#professorBox");
-        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
-        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
-
-        robot.clickOn("#okBtn");
-
-        robot.lookup(".dialog-pane").tryQuery().isPresent();
-        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
-
-        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
-        robot.clickOn(okButton);
-
-        robot.lookup("#listOfSubjects").tryQuery().isPresent();
-        robot.clickOn("#listOfSubjects");
-        TableView tableView = robot.lookup("table").queryAs(TableView.class);
-        String subjects = String.valueOf(dao.getAllSubjects());
-
-        assertTrue(subjects.contains("Testni predmet 2"));
-
-        robot.press(KeyCode.DOWN).sleep(5000);
-        robot.release(KeyCode.DOWN);
-
-        robot.clickOn("#deleteBtn");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        robot.lookup(".dialog-pane").tryQuery().isPresent();
-        DialogPane dialogPane2 = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
-
-        Button okButton2 = (Button) dialogPane2.lookupButton(ButtonType.OK);
-        robot.clickOn(okButton2);
-
-        subjects = String.valueOf(dao.getAllSubjects());
-        assertTrue(!subjects.contains("Testni predmet 2"));
-
-    }
 
     @Test
-    public void testCreateAndDeleteProfessor (FxRobot robot) {
+    public void testB (FxRobot robot) {
         robot.lookup("#createProfessor").tryQuery().isPresent();
         robot.clickOn("#createProfessor");
         try {
@@ -169,7 +112,7 @@ class Tests {
 
         assertTrue(professors.contains("Nikola Nikic 1980-02-13 2019-09-05"));
 
-        robot.press(KeyCode.DOWN).sleep(5000);
+        robot.press(KeyCode.DOWN).sleep(2000);
         robot.release(KeyCode.DOWN);
 
         robot.clickOn("#deleteBtn");
@@ -187,8 +130,69 @@ class Tests {
 
         professors = String.valueOf(dao.getAllProfessors());
         assertTrue(!professors.contains("Nikola Nikic 13.02.1980 05.09.2019"));
+        robot.closeCurrentWindow();
     }
 
+    @Test
+    public void testC (FxRobot robot) {
+        robot.lookup("#createSubject").tryQuery().isPresent();
+        robot.clickOn("#createSubject");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.lookup("#idField").tryQuery().isPresent();
+        TextField id = robot.lookup("#idField").queryAs(TextField.class);
+        assertNotNull(id);
+        robot.clickOn("#nameField");
+        robot.write("Testni predmet");
+
+        robot.clickOn("#semesterBox");
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#professorBox");
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN);
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#okBtn");
+
+
+        robot.lookup(".dialog-pane").tryQuery().isPresent();
+        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+
+        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton);
+
+
+        robot.lookup("#listOfSubjects").tryQuery().isPresent();
+        robot.clickOn("#listOfSubjects");
+        TableView tableView = robot.lookup("table").queryAs(TableView.class);
+        String subjects = String.valueOf(dao.getAllSubjects());
+
+        assertTrue(subjects.contains("Testni predmet"));
+
+        robot.press(KeyCode.DOWN).sleep(5000);
+        robot.release(KeyCode.DOWN);
+
+        robot.clickOn("#deleteBtn");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        robot.lookup(".dialog-pane").tryQuery().isPresent();
+        DialogPane dialogPane2 = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+
+        Button okButton2 = (Button) dialogPane2.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton2);
+
+        subjects = String.valueOf(dao.getAllSubjects());
+        assertTrue(!subjects.contains("Testni predmet 2"));
+
+    }
 
 
 }
