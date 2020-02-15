@@ -19,7 +19,7 @@ public class CollegeDAO {
             getStudentReportModel, getMaxIdProfessor, getMaxIdGrade, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
-            getAllSubjects, deleteSubjectQuery, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent, getPassedSubjects, studentExists;
+            getAllSubjects, gradeExists, deleteGrade, deleteSubjectQuery, getSubjectSemesterWithName, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent, getPassedSubjects, studentExists;
 
     public static CollegeDAO getInstance() {
         if (instance == null) instance = new CollegeDAO();
@@ -84,6 +84,9 @@ public class CollegeDAO {
             getSubjectIdWithName = conn.prepareStatement("SELECT id FROM subject WHERE name = ?");
             getPassedSubjects = conn.prepareStatement("SELECT count(id) FROM grade WHERE grade > 5 and student = ?;");
             studentExists = conn.prepareStatement("SELECT name FROM student WHERE index_number = ?;");
+            getSubjectSemesterWithName = conn.prepareStatement("SELECT semester FROM subject WHERE name = ?;");
+            gradeExists = conn.prepareStatement("SELECT id FROM grade WHERE student = ? AND subject = ?;");
+            deleteGrade = conn.prepareStatement("DELETE FROM grade WHERE id = ?;");
 
             proba = conn.prepareStatement("SELECT * FROM subject WHERE semester = ?");
 
@@ -460,13 +463,15 @@ public class CollegeDAO {
     }
 
     public Student getStudentWithId (int id) {
-        try {
-            getStudentWithId.setInt(1, id);
-            ResultSet resultSet = getStudentWithId.executeQuery();
-            Student student = getStudentFromResultSet(resultSet);
-            return student;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (doesStudentExists(id)) {
+            try {
+                getStudentWithId.setInt(1, id);
+                ResultSet resultSet = getStudentWithId.executeQuery();
+                Student student = getStudentFromResultSet(resultSet);
+                return student;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -618,6 +623,15 @@ public class CollegeDAO {
         }
     }
 
+    public void deleteGrade (int id) {
+        try {
+            deleteGrade.setInt(1, id);
+            deleteGrade.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getActiveUser (String username) {
         String result = null;
         try {
@@ -686,6 +700,34 @@ public class CollegeDAO {
 
         return exist;
     }
+
+    public int getSubjectSemester (String name) {
+        int semester = 0;
+        try {
+            getSubjectSemesterWithName.setString(1, name);
+            ResultSet resultSet = getSubjectSemesterWithName.executeQuery();
+            semester = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return semester;
+    }
+
+    public int doesGradeExists (int student, int subject) {
+        int result = 0;
+        try {
+            gradeExists.setInt(1, student);
+            gradeExists.setInt(2, subject);
+            ResultSet resultSet = gradeExists.executeQuery();
+            result = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
 
 
 }
