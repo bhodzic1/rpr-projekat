@@ -16,7 +16,7 @@ public class CollegeDAO {
 
     private PreparedStatement studentQuery, getStudentsQuery, setStudentIdQuery, addStudentQuery, getSubjectsQuery, proba, getStudentsWithSubjectId,
             getGradeForStudent, getStudentWithId, getSubjectReportModel, getNumberOfStudentsOnSubject, getNumberOfPassedStudentsOnSubject,
-            getStudentReportModel, getMaxIdProfessor, getMaxIdGrade, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
+            getStudentReportModel, getAllStudents, getMaxIdProfessor, getMaxIdGrade, getUsernamesFromProfessor, addProfessorQuery, setIdProfessor, getNamesProfessor,
             getIdProfessorFromNameAndLastname, addSubjectQuery, getMaxIdSubject, getDataForListOfProfessors, deleteProfessorQuery, addActiveUser,
             getDataFromActive, getDataFromLogin, deleteAllFromActive, setLabelForActiveUser, addUserIntoLogin, updateLogin, updateProfessor,
             getAllSubjects, gradeExists, deleteGrade, deleteSubjectQuery, getSubjectSemesterWithName, deleteFromLogin, getSubjectIdWithName, getUsernameAndPassword, getSubjectsForProfessor, addGradeQuery, deleteStudent, getPassedSubjects, studentExists;
@@ -80,6 +80,7 @@ public class CollegeDAO {
             updateLogin = conn.prepareStatement("UPDATE login SET username = ?, password = ? WHERE username = ?");
             updateProfessor = conn.prepareStatement("UPDATE professor SET username = ?, password = ? WHERE username = ?");
             getAllSubjects = conn.prepareStatement("SELECT * FROM subject");
+            getAllStudents = conn.prepareStatement("SELECT * FROM student;");
             getSubjectsForProfessor = conn.prepareStatement("SELECT s.name FROM subject s, professor p WHERE s.professor = p.id AND p.username = ?");
             getSubjectIdWithName = conn.prepareStatement("SELECT id FROM subject WHERE name = ?");
             getPassedSubjects = conn.prepareStatement("SELECT count(id) FROM grade WHERE grade > 5 and student = ?;");
@@ -229,6 +230,21 @@ public class CollegeDAO {
         return list;
     }
 
+    public ArrayList<Student> getAllStudents () {
+        ArrayList<Student> list = new ArrayList<>();
+
+        try {
+
+            ResultSet resultSet = getAllStudents.executeQuery();
+            while (resultSet.next()) {
+                Student student = getStudentFromResultSet(resultSet);
+                list.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 
     public void addStudent (Student student) {

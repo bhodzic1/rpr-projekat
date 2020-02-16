@@ -333,13 +333,6 @@ public class RegistrationForm implements Initializable {
 
     @FXML
     public void addStudent (ActionEvent actionEvent) {
-        if (dao.doesStudentExists(Integer.valueOf(idField.getText()))) {
-            System.out.println("postoji");
-            System.out.println(Integer.valueOf(idField.getText()));
-        } else {
-            System.out.println("ne postoji");
-            System.out.println(Integer.valueOf(idField.getText()));
-        }
         passedSubjects = dao.getPassedSubjects(Integer.parseInt(idField.getText()));
         if (firstnameValid && lastnameValid && emailValid && addressValid && dateValid && idNumberValid && studyYearValid && studyLevelValid && enrolmentDateValid) {
             Student student = new Student(nameField.getText(), lastnameField.getText(), Integer.valueOf(idField.getText()), dateField.getValue(), idNumberField.getText(), studyLevel, Integer.valueOf(studyYear.getValue()), addressField.getText(), emailField.getText(), enrolmentDate.getValue());

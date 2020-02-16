@@ -16,8 +16,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -322,6 +325,29 @@ public class ListOfStudents implements Initializable {
 
 
 
+    }
+
+    @FXML
+    public void print (ActionEvent actionEvent) {
+        File file = new File("students.txt");
+        ArrayList<Student> models = new ArrayList<>();
+        models = dao.getAllStudents();
+        if (file != null) {
+            try {
+                FileWriter fileWriter = new FileWriter(file);
+                String string = "";
+                string += "Name of student, index number, enrolment day\n";
+                for (Student k : models) {
+                    string += k.getName() + " " + k.getLastname() + ", " + k.getIndexNumber() + ", " + k.getEnrolmentDate() + "\n";
+                }
+                fileWriter.write(string);
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        ((Stage) (((Button) actionEvent.getSource()).getScene().getWindow())).close();
     }
 
 

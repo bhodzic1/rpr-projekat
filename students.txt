@@ -1,0 +1,9 @@
+Name of student, index number, enrolment day
+Mirza Delibasic, 1, 2019-07-12
+Sergej Barbarez, 2, 2019-09-05
+Drazen Petrovic, 3, 2019-07-12
+Edin Dzeko, 5, 2019-09-02
+Miralem Pjanic, 6, 2019-09-02
+Belmin Dzananovic, 7, 2019-09-01
+Muharem Serbezovski, 8, 2020-02-13
+Rade Lackovic, 9, 2020-02-13

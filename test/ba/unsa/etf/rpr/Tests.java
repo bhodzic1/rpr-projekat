@@ -173,7 +173,7 @@ class Tests {
 
         assertTrue(subjects.contains("Testni predmet"));
 
-        robot.press(KeyCode.DOWN).sleep(5000);
+        robot.press(KeyCode.DOWN).sleep(2000);
         robot.release(KeyCode.DOWN);
 
         robot.clickOn("#deleteBtn");
@@ -191,7 +191,76 @@ class Tests {
 
         subjects = String.valueOf(dao.getAllSubjects());
         assertTrue(!subjects.contains("Testni predmet 2"));
+        robot.closeCurrentWindow();
+    }
 
+    @Test
+    public void testD (FxRobot robot) {
+        robot.lookup("#registryButton").tryQuery().isPresent();
+        robot.clickOn("#registryButton");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.lookup("#nameField").tryQuery().isPresent();
+
+        robot.clickOn("#nameField");
+        robot.write("Saša");
+
+        robot.clickOn("#lastnameField");
+        robot.write("Vugdalić");
+
+        robot.press(KeyCode.TAB);
+        robot.release(KeyCode.TAB);
+        robot.press(KeyCode.TAB);
+        robot.release(KeyCode.TAB);
+
+        robot.clickOn("#dateField");
+        robot.write("05. 09. 1998");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#idNumberField");
+        robot.write("0509998134217");
+
+        robot.clickOn("#studyLevelBox");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#studyYear");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#addressField");
+        robot.write("Zenica");
+
+        robot.clickOn("#emailField");
+        robot.write("svugdalic1@etf.unsa.ba");
+
+        robot.clickOn("#enrolmentDate");
+        robot.write("05. 09. 2019");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        robot.clickOn("#addButton");
+
+        robot.lookup(".dialog-pane").tryQuery().isPresent();
+        DialogPane dialogPane = robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+
+        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton);
+
+
+        /*robot.lookup("#listButton").tryQuery().isPresent();
+        robot.clickOn("#listButton");
+        TableView tableView = robot.lookup("tableViewBachelor").queryAs(TableView.class);*/
+        String students = String.valueOf(dao.getAllStudents());
+        String id = String.valueOf(dao.getMaxId() - 1);
+
+        assertTrue(students.contains("Saša Vugdalić " + id));
+
+        dao.deleteStudent(10);
+        students = String.valueOf(dao.getAllStudents());
+
+        assertFalse(students.contains("Saša Vugdalić " + id));
+        dao.deleteAllFromActive();
     }
 
 
